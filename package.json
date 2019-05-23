@@ -9,7 +9,8 @@
     "deploy-storybook": "storybook-to-ghpages",
     "build-js": "babel src --out-dir dist",
     "build-css": "mkdir -p dist && cp src/*.css dist/",
-    "build": "rm -rf dist && npm run -s build-js && npm run -s build-css"
+    "build": "rm -rf dist && npm run -s build-js && npm run -s build-css",
+    "prepublish": "npm run -s build"
   },
   "keywords": [
     "Date",
@@ -44,5 +45,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CodeYellowBV/daycy.git"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
