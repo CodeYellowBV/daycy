@@ -4,10 +4,12 @@ import { Icon, Input } from 'semantic-ui-react';
 import { Interval } from 'luxon';
 
 import Calendar from './Calendar';
+import translate from './translate';
+
 const OTHER = { start: 'end', end: 'start' };
 const EMPTY = { start: null, end: null };
 
-export class DateRangePicker extends Component {
+export default class DateRangePicker extends Component {
     static propTypes = {
         value: PropTypes.instanceOf(Interval),
         onChange: PropTypes.func.isRequired,
@@ -18,21 +20,17 @@ export class DateRangePicker extends Component {
         ]),
         startProps: PropTypes.object,
         endProps: PropTypes.object,
+        fluid: PropTypes.bool,
+        translate: PropTypes.func,
     };
 
     static defaultProps = {
-        format: 'DD-MM-YYYY',
+        format: 'dd-LL-yyyy',
         icon: 'arrow right',
         startProps: {},
         endProps: {},
-    };
-
-    static defaultStartProps = {
-        placeholder: t('dates.minDate.placeholder'),
-    };
-
-    static defaultEndProps = {
-        placeholder: t('dates.maxDate.placeholder'),
+        fluid: false,
+        translate,
     };
 
     state = { open: null, override: null };
@@ -83,8 +81,8 @@ export class DateRangePicker extends Component {
     }
 
     render() {
-        let { value, format, icon, startProps, endProps, ...props } = this.props;
-        const { open, override } = this.props;
+        let { value, format, icon, translate, startProps, endProps, fluid, ...props } = this.props;
+        const { open, override } = this.state;
 
         value = override || value || EMPTY;
 
@@ -94,10 +92,24 @@ export class DateRangePicker extends Component {
             );
         }
 
-        startProps = { ...this.constructor.defaultStartProps, ...startProps };
-        endProps = { ...this.constructor.defaultEndProps, ...endProps };
+        startProps = { 
+            placeholder: translate('dateRangePicker.startDate'),
+            ...startProps,
+        };
+        endProps = { 
+            placeholder: translate('dateRangePicker.endDate'),
+            ...endProps,
+        };
 
         delete props.onChange;
+
+        const classes = ['day-cy', 'date-range-picker'];
+        if (open !== null) {
+            classes.push('focus');
+        }
+        if (fluid) {
+            classes.push('fluid');
+        }
 
         return (
             <Calendar
@@ -105,18 +117,11 @@ export class DateRangePicker extends Component {
                 value={value[open]}
                 onChange={this.onChange}
                 onClose={this.onClose}
-                hoverHighlight={open}
-                highlight={
-                    (value.start || value.end) &&
-                    Interval.fromDateTimes(
-                        value.start || value.end,
-                        value.end || value.start,
-                    )
-                }
+                hover={open}
+                highlightStart={value.start || value.end}
+                highlightEnd={value.end || value.start}
                 trigger={
-                    <div className={
-                        `cy-dates date-range-picker${open !== null ? ' focus' : ''}`
-                    }>
+                    <div className={classes.join(' ')} {...props}>
                         <Input
                             readOnly
                             value={value.start ? value.start.toFormat(format) : ''}
@@ -132,6 +137,7 @@ export class DateRangePicker extends Component {
                         />
                     </div>
                 }
+                translate={translate}
             />
         );
     }

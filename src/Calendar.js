@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { Popup, Icon } from 'semantic-ui-react';
 import { DateTime } from 'luxon';
 
+import translate from './translate';
+
+
+const DAYS = [
+    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
+    'sunday',
+];
+
 export default class Calendar extends Component {
     static propTypes = {
         trigger: PropTypes.node.isRequired,
@@ -13,44 +21,61 @@ export default class Calendar extends Component {
         highlightStart: PropTypes.instanceOf(DateTime),
         highlightEnd: PropTypes.instanceOf(DateTime),
         hover: PropTypes.oneOf(['start', 'end']),
+        translate: PropTypes.func,
+    };
+
+    static defaultProps = {
+        translate,
     };
 
     state = { month: null, dates: null, hoverDate: null };
 
     constructor(...args) {
         super(...args);
-
-        this.setCurrDate();
-
         this.setPrevMonth = this.setPrevMonth.bind(this);
         this.setNextMonth = this.setNextMonth.bind(this);
+        this.renderDay = this.renderDay.bind(this);
         this.renderDate = this.renderDate.bind(this);
     }
 
     static getDerivedStateFromProps(
-        { value, highlightStart, highlightEnd },
+        { open, value, highlightStart, highlightEnd },
         { month, dates },
     ) {
         const updates = {};
-        if (month === null) {
-            const date = (
-                value ||
-                highlightStart ||
-                highlightEnd || 
-                DateTime.local()
-            );
-            month = date.startOf('month');
-            updates.month = month;
+        
+        if (value) {
+            updates.value = value.startOf('day');
+        } else {
+            updates.value = null;
         }
-        if (dates === null) {
-            dates = [];
-            const start = month.startOf('week');
-            const end = month.endOf('month').endOf('week');
-            for (let date = start; date <= end; date = date.plus({ days: 1 })) {
-                dates.push(date); 
+
+        if (open) {
+            if (month === null) {
+                const date = (
+                    value ||
+                    highlightStart ||
+                    highlightEnd || 
+                    DateTime.local()
+                );
+                month = date.startOf('month');
+                updates.month = month;
             }
-            updates.dates = dates;
+            if (dates === null) {
+                dates = [];
+                const start = month.startOf('week');
+                const end = month.endOf('month').endOf('week');
+                for (let date = start; date <= end; date = date.plus({ days: 1 })) {
+                    dates.push(date); 
+                }
+                updates.dates = dates;
+            }
+        } else {
+            updates.month = null;
+            updates.dates = null;
+            updates.hoverDate = null;
         }
+
         return updates;
     }
 
@@ -70,13 +95,22 @@ export default class Calendar extends Component {
         });
     }
 
+    renderDay(day) {
+        const { translate } = this.props;
+        return (
+            <div className="cell label" key={day}>
+                {translate(`calendar.day.${day}`)}
+            </div>
+        );
+    }
+
     renderDate(date) {
-        const { value, hover, highlightStart, highlightEnd, onChange } = this.props;
-        const { month, hoverDate } = this.state;
+        const { hover, highlightStart, highlightEnd, onChange } = this.props;
+        const { value, month, hoverDate } = this.state;
 
         const classes = ['cell', 'day'];
 
-        if (value && date === value) {
+        if (value && +date === +value) {
             classes.push('selected');
         }
         if (
@@ -122,12 +156,12 @@ export default class Calendar extends Component {
     }
 
     render() {
-        const { open, trigger, onClose } = this.props;
+        const { open, trigger, onClose, translate } = this.props;
         const { month, dates } = this.state;
 
         return (
             <Popup 
-                className="cy-dates calendar"
+                className="day-cy calendar"
                 trigger={trigger} 
                 open={open} 
                 on="click" 
@@ -135,20 +169,16 @@ export default class Calendar extends Component {
             >
                 <div className="title">
                     <Icon name="chevron left" onClick={this.setPrevMonth} />
-                    <span>
-                        {t(`dates.month.${month.month}`)} {month.year}
-                    </span>
+                    {month && (
+                        <span>
+                            {translate(`calendar.month.${month.month}`)} {month.year}
+                        </span>
+                    )}
                     <Icon name="chevron right" onClick={this.setNextMonth} />
                 </div>
                 <div className="grid">
-                    <div className="cell label">{t(`dates.weekDayShort.monday`)}</div>
-                    <div className="cell label">{t(`dates.weekDayShort.tuesday`)}</div>
-                    <div className="cell label">{t(`dates.weekDayShort.wednesday`)}</div>
-                    <div className="cell label">{t(`dates.weekDayShort.thursday`)}</div>
-                    <div className="cell label">{t(`dates.weekDayShort.friday`)}</div>
-                    <div className="cell label">{t(`dates.weekDayShort.saturday`)}</div>
-                    <div className="cell label">{t(`dates.weekDayShort.sunday`)}</div>
-                    {dates.map(this.renderDate)}
+                    {DAYS.map(this.renderDay)}
+                    {dates && dates.map(this.renderDate)}
                 </div>
             </Popup>
         );

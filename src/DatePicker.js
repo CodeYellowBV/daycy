@@ -4,16 +4,19 @@ import { Input } from 'semantic-ui-react';
 import { DateTime } from 'luxon';
 
 import Calendar from './Calendar';
+import translate from './translate';
 
-export class DatePicker extends Component {
+export default class DatePicker extends Component {
     static propTypes = {
         value: PropTypes.instanceOf(DateTime),
         onChange: PropTypes.func.isRequired,
         format: PropTypes.string,
+        translate: PropTypes.func,
     };
 
     static defaultProps = {
-        format: 'DD-MM-YYYY',
+        format: 'dd-LL-yyyy',
+        translate,
     };
 
     state = { open: false };
@@ -41,7 +44,7 @@ export class DatePicker extends Component {
     }
 
     render() {
-        const { value, format, ...props } = this.props;
+        const { value, format, translate, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
@@ -54,7 +57,7 @@ export class DatePicker extends Component {
                 onClose={this.onClose}
                 trigger={
                     <Input
-                        className="cy-dates date-picker"
+                        className="day-cy date-picker"
                         value={value ? value.toFormat(format) : ''}
                         readOnly
                         focus={open}
@@ -62,6 +65,7 @@ export class DatePicker extends Component {
                         {...props}
                     />
                 }
+                translate={translate}
             />
         );
     }
