@@ -1,0 +1,91 @@
+/* DateRangePicker */
+
+.cy-dates.date-range-picker {
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    border-radius: 0.28571429rem;
+    min-width: 20rem;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+}
+
+.cy-dates.date-range-picker.focus {
+    border-color: #85b7d9;
+}
+
+.cy.dates.date-range-picker > .ui.input {
+    flex: 1 1 auto;
+    width: 0 !important;
+}
+
+.cy.dates.date-range-picker > .ui.input > input {
+    background: unset !important;
+    border: unset !important;
+}
+
+.cy-dates.date-range-seperator {
+    flex: 0 0 auto;
+    color: #888;
+}
+
+/* Calendar */
+
+.cy-dates.calendar > .title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 120%;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    padding: 0 1rem 0.833rem;
+    margin: 0 -1rem 0.833rem;
+}
+
+.cy-dates.calendar > .title > .icon {
+    cursor: pointer;
+    opacity: 0.3 !important;
+}
+
+.cy-dates.calendar > .title > .icon:hover {
+    opacity: 0.5 !important;
+}
+
+.cy-dates.calendar > .grid {
+    width: 17.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cy-dates.calendar > .grid > .cell {
+    flex: 0 0 2.3rem;
+    height: 2.3rem;
+    margin: 0.1rem;
+    text-align: center;
+    line-height: 2.3rem;
+    color: #000;
+    border-color: rgba(34, 36, 38, 0.2);
+}
+
+.cy-dates.calendar > .grid > .cell.range {
+    background-color: #dff0ff;
+    border-color: rgba(34, 36, 38, 0.3);
+}
+
+.cy-dates.calendar > .grid > .cell.selected {
+    background-color: #2185d0;
+    color: #FFF;
+    border-color: rgba(34, 36, 38, 0.4);
+}
+
+.cy-dates.calendar > .grid > .cell.label {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.cy-dates.calendar > .grid > .cell.outside {
+    opacity: 0.3;
+}
+
+.cy-dates.calendar > .grid > .cell.hover {
+    border-width: 1px;
+    border-style: solid;
+    line-height: calc(2.3rem - 2px);
+}
