@@ -5,7 +5,7 @@ import { DateTime, Interval } from 'luxon';
 import { DatePicker, DateRangePicker, objectLookup } from '../src/index';
 
 import 'semantic-ui-css/semantic.min.css';
-import '../src/day-cy.css';
+import '../src/daycy.css';
 
 const translate = objectLookup({
     calendar: {

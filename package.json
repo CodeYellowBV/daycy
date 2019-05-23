@@ -1,5 +1,5 @@
 {
-  "name": "day-cy",
+  "name": "daycy",
   "version": "0.1.0",
   "description": "Simple date (range) picker for React.",
   "main": "./dist/index.js",
