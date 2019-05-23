@@ -57,7 +57,7 @@ export default class DatePicker extends Component {
                 onClose={this.onClose}
                 trigger={
                     <Input
-                        className="day-cy date-picker"
+                        className="daycy date-picker"
                         value={value ? value.toFormat(format) : ''}
                         readOnly
                         focus={open}

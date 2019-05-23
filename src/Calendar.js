@@ -5,10 +5,13 @@ import { DateTime } from 'luxon';
 
 import translate from './translate';
 
-
 const DAYS = [
     'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
     'sunday',
+];
+const MONTHS = [
+    'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august',
+    'september', 'october', 'november', 'december',
 ];
 
 export default class Calendar extends Component {
@@ -99,7 +102,7 @@ export default class Calendar extends Component {
         const { translate } = this.props;
         return (
             <div className="cell label" key={day}>
-                {translate(`calendar.day.${day}`)}
+                {translate(`weekDay.${day}`)}
             </div>
         );
     }
@@ -161,7 +164,7 @@ export default class Calendar extends Component {
 
         return (
             <Popup 
-                className="day-cy calendar"
+                className="daycy calendar"
                 trigger={trigger} 
                 open={open} 
                 on="click" 
@@ -171,7 +174,7 @@ export default class Calendar extends Component {
                     <Icon name="chevron left" onClick={this.setPrevMonth} />
                     {month && (
                         <span>
-                            {translate(`calendar.month.${month.month}`)} {month.year}
+                            {translate(`month.${MONTHS[month.month - 1]}`)} {month.year}
                         </span>
                     )}
                     <Icon name="chevron right" onClick={this.setNextMonth} />

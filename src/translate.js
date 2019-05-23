@@ -1,5 +1,3 @@
-let translate = (key) => key;
-
 export function objectLookup(translations) {
     return (key) => {
         const parts = key.split('.');
@@ -14,11 +12,37 @@ export function objectLookup(translations) {
     };
 }
 
-export function configureTranslate(translateFunction) {
+let translate = objectLookup({
+    weekDay: {
+        monday: 'Mo',
+        tuesday: 'Tu',
+        wednesday: 'We',
+        thursday: 'Th',
+        friday: 'Fr',
+        saturday: 'Sa',
+        sunday: 'Su',
+    },
+    month: {
+        january: 'January',
+        february: 'February',
+        march: 'March',
+        april: 'April',
+        may: 'May',
+        june: 'June',
+        july: 'July',
+        august: 'August',
+        september: 'September',
+        october: 'October',
+        november: 'November',
+        december: 'December',
+    },
+});
+
+export function configureTranslation(translationFunction) {
     if (typeof translateFunction === 'object') {
-        translateFunction = objectLookup(translateFunction);
+        translationFunction = objectLookup(translationFunction);
     }
-    translate = translateFunction;
+    translate = translationFunction;
 }
 
 export default translate;

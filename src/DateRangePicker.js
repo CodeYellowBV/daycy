@@ -20,6 +20,8 @@ export default class DateRangePicker extends Component {
         ]),
         startProps: PropTypes.object,
         endProps: PropTypes.object,
+        startPlaceholder: PropTypes.string,
+        endPlaceholder: PropTypes.string,
         fluid: PropTypes.bool,
         translate: PropTypes.func,
     };
@@ -29,6 +31,8 @@ export default class DateRangePicker extends Component {
         icon: 'arrow right',
         startProps: {},
         endProps: {},
+        startPlaceholder: '',
+        endPlaceholder: '',
         fluid: false,
         translate,
     };
@@ -81,7 +85,10 @@ export default class DateRangePicker extends Component {
     }
 
     render() {
-        let { value, format, icon, translate, startProps, endProps, fluid, ...props } = this.props;
+        let {
+            value, format, icon, translate, startProps, endProps,
+            startPlaceholder, endPlaceholder, fluid, ...props
+        } = this.props;
         const { open, override } = this.state;
 
         value = override || value || EMPTY;
@@ -92,18 +99,12 @@ export default class DateRangePicker extends Component {
             );
         }
 
-        startProps = { 
-            placeholder: translate('dateRangePicker.startDate'),
-            ...startProps,
-        };
-        endProps = { 
-            placeholder: translate('dateRangePicker.endDate'),
-            ...endProps,
-        };
+        startProps = { placeholder: startPlaceholder, ...startProps };
+        endProps = { placeholder: endPlaceholder, ...endProps };
 
         delete props.onChange;
 
-        const classes = ['day-cy', 'date-range-picker'];
+        const classes = ['daycy', 'date-range-picker'];
         if (open !== null) {
             classes.push('focus');
         }
@@ -123,14 +124,14 @@ export default class DateRangePicker extends Component {
                 trigger={
                     <div className={classes.join(' ')} {...props}>
                         <Input
-                            readOnly
+                            readOnly className="start-date"
                             value={value.start ? value.start.toFormat(format) : ''}
                             onClick={this.onOpenStart}
                             {...startProps}
                         />
                         {icon}
                         <Input
-                            readOnly
+                            readOnly className="end-date"
                             value={value.end ? value.end.toFormat(format) : ''}
                             onClick={this.onOpenEnd}
                             {...endProps}
