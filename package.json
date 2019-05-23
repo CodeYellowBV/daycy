@@ -37,5 +37,9 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "semantic-ui-react": "^0.87.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeYellowBV/daycy.git"
   }
 }
