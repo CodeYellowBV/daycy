@@ -1,6 +1,4 @@
 # DayCY
-[![Storybook](https://cdn.jsdelivr.net/gh/storybooks/brand@master/badge/badge-storybook.svg)](https://CodeYellowBV.github.io/daycy/)
+Simple date (range) picker for React based on Semantic-UI.
 
-Simple date (range) picker for React.
-
-Based on Semantic-UI React.
+[Demo / overview of all components](https://CodeYellowBV.github.io/daycy/)
