@@ -1,17 +1,22 @@
 # DayCY
+[![npm](https://img.shields.io/npm/v/daycy.svg)](https://www.npmjs.com/package/daycy/)
+
 Simple date (range) picker for React based on Semantic-UI.
 
 [**Demo / overview of all components**](https://CodeYellowBV.github.io/daycy/)
 
-## Usage
-To use DayCY you will have to install the package first. (Since DayCY uses
-Semantic-UI styling you will also need to install `semantic-ui-css`.)
+## Install
 ```
-npm install semantic-ui-css
 npm install daycy
 ```
-We will also need to include the CSS. The easiest way to do this is to have
-your babel setup in such a way that you can import CSS.
+
+## Usage
+First we will have to include the CSS. The easiest way to do this is to have
+your babel setup in such a way that you can import CSS. DayCY also needs the
+CSS from Semantic UI.
+```
+npm install semantic-ui-css
+```
 ```jsx
 import 'semantic-ui-css/semantic.min.css';
 import 'daycy/dist/daycy.css';
