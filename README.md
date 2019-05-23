@@ -27,7 +27,7 @@ version of the package you have installed.
 ## Internationalization
 By default the calendar popup will use English names for the months and days of
 the week. To override this you can change the translation function.
-```
+```jsx
 import { configureTranslation } from 'daycy';
 
 function myTranslationFunction(key) {
