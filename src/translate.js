@@ -8,11 +8,23 @@ export function objectLookup(translations) {
             }
             node = node[part];
         }
-        return node || key;
+        if (typeof node !== 'string') {
+            return key;
+        }
+        return node;
     };
 }
 
-let translate = objectLookup({
+export let translate = null;
+
+export function configureTranslation(translationFunction) {
+    if (typeof translationFunction === 'object') {
+        translationFunction = objectLookup(translationFunction);
+    }
+    translate = translationFunction;
+}
+
+configureTranslation({
     weekDay: {
         monday: 'Mo',
         tuesday: 'Tu',
@@ -37,12 +49,3 @@ let translate = objectLookup({
         december: 'December',
     },
 });
-
-export function configureTranslation(translationFunction) {
-    if (typeof translateFunction === 'object') {
-        translationFunction = objectLookup(translationFunction);
-    }
-    translate = translationFunction;
-}
-
-export default translate;

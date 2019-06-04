@@ -4,7 +4,6 @@ import { Input } from 'semantic-ui-react';
 import { DateTime } from 'luxon';
 
 import Calendar from './Calendar';
-import translate from './translate';
 
 export default class DatePicker extends Component {
     static propTypes = {
@@ -16,7 +15,6 @@ export default class DatePicker extends Component {
 
     static defaultProps = {
         format: 'dd-LL-yyyy',
-        translate,
     };
 
     state = { open: false };

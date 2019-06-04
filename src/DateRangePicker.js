@@ -4,7 +4,6 @@ import { Icon, Input } from 'semantic-ui-react';
 import { Interval } from 'luxon';
 
 import Calendar from './Calendar';
-import translate from './translate';
 
 const OTHER = { start: 'end', end: 'start' };
 const EMPTY = { start: null, end: null };
@@ -34,7 +33,6 @@ export default class DateRangePicker extends Component {
         startPlaceholder: '',
         endPlaceholder: '',
         fluid: false,
-        translate,
     };
 
     state = { open: null, override: null };

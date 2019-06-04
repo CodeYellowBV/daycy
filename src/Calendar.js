@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Popup, Icon } from 'semantic-ui-react';
 import { DateTime } from 'luxon';
 
-import translate from './translate';
+import { translate } from './translate';
 
 const DAYS = [
     'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
@@ -27,10 +27,6 @@ export default class Calendar extends Component {
         translate: PropTypes.func,
     };
 
-    static defaultProps = {
-        translate,
-    };
-
     state = { month: null, dates: null, hoverDate: null };
 
     constructor(...args) {
@@ -39,6 +35,10 @@ export default class Calendar extends Component {
         this.setNextMonth = this.setNextMonth.bind(this);
         this.renderDay = this.renderDay.bind(this);
         this.renderDate = this.renderDate.bind(this);
+    }
+
+    translate(key) {
+        return (this.props.translate || translate)(key);
     }
 
     static getDerivedStateFromProps(
@@ -99,10 +99,9 @@ export default class Calendar extends Component {
     }
 
     renderDay(day) {
-        const { translate } = this.props;
         return (
             <div className="cell label" key={day}>
-                {translate(`weekDay.${day}`)}
+                {this.translate(`weekDay.${day}`)}
             </div>
         );
     }
@@ -159,7 +158,7 @@ export default class Calendar extends Component {
     }
 
     render() {
-        const { open, trigger, onClose, translate } = this.props;
+        const { open, trigger, onClose } = this.props;
         const { month, dates } = this.state;
 
         return (
@@ -174,7 +173,7 @@ export default class Calendar extends Component {
                     <Icon name="chevron left" onClick={this.setPrevMonth} />
                     {month && (
                         <span>
-                            {translate(`month.${MONTHS[month.month - 1]}`)} {month.year}
+                            {this.translate(`month.${MONTHS[month.month - 1]}`)} {month.year}
                         </span>
                     )}
                     <Icon name="chevron right" onClick={this.setNextMonth} />
