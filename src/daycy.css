@@ -1,3 +1,9 @@
+/* DatePicker */
+
+.daycy.date-picker {
+    max-width: 19.5rem;
+}
+
 /* DateRangePicker */
 
 .daycy.date-range-picker {
@@ -10,6 +16,7 @@
     border: 1px solid rgba(34, 36, 38, 0.15);
 }
 
+.ui.form .daycy.date-range-picker,
 .daycy.date-range-picker.fluid {
     max-width: unset;
 }
