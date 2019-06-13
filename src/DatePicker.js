@@ -11,10 +11,12 @@ export default class DatePicker extends Component {
         onChange: PropTypes.func.isRequired,
         format: PropTypes.string,
         translate: PropTypes.func,
+        fluid: PropTypes.bool,
     };
 
     static defaultProps = {
         format: 'dd-LL-yyyy',
+        fluid: false,
     };
 
     state = { open: false };
@@ -55,7 +57,7 @@ export default class DatePicker extends Component {
                 onClose={this.onClose}
                 trigger={
                     <Input
-                        className="daycy date-picker"
+                        className={`daycy date-picker${props.fluid ? ' fluid' : ''}`}
                         value={value ? value.toFormat(format) : ''}
                         readOnly
                         focus={open}

@@ -16,6 +16,8 @@
     border: 1px solid rgba(34, 36, 38, 0.15);
 }
 
+.ui.form .daycy.date-picker,
+.daycy.date-picker.fluid,
 .ui.form .daycy.date-range-picker,
 .daycy.date-range-picker.fluid {
     max-width: unset;
