@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2019-07-04
+### Added
+- Add `includeWeeks` property to both `DatePicker` and `DateRangePicker` for
+displaying week numbers to the calendar. For `DateRangePicker` this week number
+can also be clicked to select this week as your range.
+
 ## [0.1.3] - 2019-06-13
 ### Added
 - Add fluid property to `DatePicker` and always enable it when it is inside a
@@ -21,6 +27,8 @@ Semantic UI Form.
 ### Added
 - First version of this project.
 
+[0.1.4]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.4
+[0.1.3]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.3
 [0.1.2]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.2
 [0.1.1]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.1
 [0.1.0]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.0

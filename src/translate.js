@@ -1,5 +1,5 @@
 export function objectLookup(translations) {
-    return (key) => {
+    return (key, args = {}) => {
         const parts = key.split('.');
         let node = translations;
         for (const part of parts) {
@@ -7,6 +7,9 @@ export function objectLookup(translations) {
                 return key;
             }
             node = node[part];
+        }
+        if (typeof node === 'function') {
+            node = node(args);
         }
         if (typeof node !== 'string') {
             return key;
@@ -25,6 +28,10 @@ export function configureTranslation(translationFunction) {
 }
 
 configureTranslation({
+    week: {
+        label: 'Wk',
+        number: ({ weekNumber }) => `${weekNumber}`,
+    },
     weekDay: {
         monday: 'Mo',
         tuesday: 'Tu',

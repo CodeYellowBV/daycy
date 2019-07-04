@@ -50,14 +50,17 @@
 
 /* Calendar */
 
+.daycy.calendar {
+    padding: 0;
+}
+
 .daycy.calendar > .title {
     display: flex;
     justify-content: space-between;
     font-size: 120%;
     font-weight: bold;
     border-bottom: 1px solid rgba(34, 36, 38, 0.15);
-    padding: 0 1rem 0.833rem;
-    margin: 0 -1rem 0.833rem;
+    padding: 0.883rem 1rem;
     color: rgb(34, 36, 38);
 }
 
@@ -70,14 +73,9 @@
     color: rgb(34, 36, 38, 0.5);
 }
 
-.daycy.calendar > .grid {
-    width: 17.5rem;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.daycy.calendar > .grid > .cell {
-    flex: 0 0 2.3rem;
+.daycy.calendar > .grid > .row > .cell {
+    display: inline-block;
+    width: 2.3rem;
     height: 2.3rem;
     margin: 0.1rem;
     text-align: center;
@@ -88,32 +86,72 @@
     border-radius: 0.3rem;
 }
 
-.daycy.calendar > .grid > .cell.range {
-    background-color: #dff0ff;
+.daycy.calendar > .grid > .row > .cell.range {
+    background-color: #c4e2f9;
     border-color: rgba(34, 36, 38, 0.3);
 }
 
-.daycy.calendar > .grid > .cell.selected {
+.daycy.calendar > .grid > .row > .cell.selected {
     background-color: #2185d0;
     color: #FFF;
     font-weight: bold;
     border-color: rgba(34, 36, 38, 0.4);
 }
 
-.daycy.calendar > .grid > .cell.label {
+.daycy.calendar > .grid > .row > .cell.week {
+    font-size: 100%;
+    color: #95ccf5;
+    border-radius: unset;
+    width: 3.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0;
+    /* border-right: 1px solid rgba(34, 36, 38, 0.15);*/
+    border-right: 1px solid rgba(34, 36, 38, 0.075);
+    cursor: unset;
+}
+
+.daycy.calendar > .grid > .row > .cell.week.selectable {
+    cursor: pointer;
+}
+
+.daycy.calendar > .grid > .row > .cell.label {
     color: rgba(34, 36, 38, 0.5);
     font-size: 80%;
-    height: 1.3rem;
+    height: 2.05rem;
+    padding-top: 0.75rem;
     line-height: 1.3rem;
     cursor: unset;
 }
 
-.daycy.calendar > .grid > .cell.outside {
+.daycy.calendar > .grid > .row > .cell.week.label {
+    height: 2.25rem;
+    line-height: 1.5rem;
+}
+
+.daycy.calendar > .grid > .row > .cell.outside {
     opacity: 0.3;
 }
 
-.daycy.calendar > .grid > .cell.hover {
+.daycy.calendar > .grid > .row > .cell.hover {
     border-width: 1px;
     border-style: solid;
     line-height: calc(2.3rem - 2px);
+}
+
+.daycy.calendar > .grid > .row > .cell.first {
+    margin-left: 0.85rem;
+}
+
+.daycy.calendar > .grid > .row > .cell:last-child {
+    margin-right: 0.85rem;
+}
+
+.daycy.calendar > .grid > .row:last-child > .cell {
+    margin-bottom: 0.6rem;
+}
+
+.daycy.calendar > .grid > .row:last-child > .cell.week {
+    height: 3rem;
+    margin-bottom: 0;
 }

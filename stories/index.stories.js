@@ -26,6 +26,24 @@ storiesOf('DatePicker', module)
             onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
         />
+    ))
+    .add('empty with weeks', () => (
+        <DatePicker 
+            placeholder="Date"
+            value={null}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+            includeWeeks
+        />
+    ))
+    .add('filled with weeks', () => (
+        <DatePicker 
+            placeholder="Date"
+            value={date}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+            includeWeeks
+        />
     ));
 
 storiesOf('DateRangePicker', module)
@@ -45,5 +63,25 @@ storiesOf('DateRangePicker', module)
             value={interval}
             onChange={action('changed')}
             style={{ margin: '1rem' }}
+        />
+    ))
+    .add('empty with weeks', () => (
+        <DateRangePicker
+            startPlaceholder="Start Date"
+            endPlaceholder="End Date"
+            value={null}
+            onChange={action('changed')}
+            style={{ margin: '1rem' }}
+            includeWeeks
+        />
+    ))
+    .add('filled with weeks', () => (
+        <DateRangePicker
+            startPlaceholder="Start Date"
+            endPlaceholder="End Date"
+            value={interval}
+            onChange={action('changed')}
+            style={{ margin: '1rem' }}
+            includeWeeks
         />
     ));

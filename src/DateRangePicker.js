@@ -23,6 +23,7 @@ export default class DateRangePicker extends Component {
         endPlaceholder: PropTypes.string,
         fluid: PropTypes.bool,
         translate: PropTypes.func,
+        includeWeeks: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -40,6 +41,7 @@ export default class DateRangePicker extends Component {
     constructor(...args) {
         super(...args);
         this.onChange = this.onChange.bind(this);
+        this.onWeekSelect = this.onWeekSelect.bind(this);
         this.onOpenStart = this.onOpenStart.bind(this);
         this.onOpenEnd = this.onOpenEnd.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -68,6 +70,12 @@ export default class DateRangePicker extends Component {
         }
     }
 
+    onWeekSelect(week) {
+        const { onChange } = this.props;
+        onChange(week);
+        this.onClose();
+    }
+
     onOpenStart(e) {
         e.preventDefault();
         this.setState({ open: 'start' });
@@ -85,7 +93,8 @@ export default class DateRangePicker extends Component {
     render() {
         let {
             value, format, icon, translate, startProps, endProps,
-            startPlaceholder, endPlaceholder, fluid, ...props
+            startPlaceholder, endPlaceholder, fluid, includeWeeks,
+            ...props
         } = this.props;
         const { open, override } = this.state;
 
@@ -137,6 +146,8 @@ export default class DateRangePicker extends Component {
                     </div>
                 }
                 translate={translate}
+                includeWeeks={includeWeeks}
+                onWeekSelect={this.onWeekSelect}
             />
         );
     }

@@ -12,6 +12,7 @@ export default class DatePicker extends Component {
         format: PropTypes.string,
         translate: PropTypes.func,
         fluid: PropTypes.bool,
+        includeWeeks: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -44,7 +45,7 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const { value, format, translate, ...props } = this.props;
+        const { value, format, translate, includeWeeks, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
@@ -66,6 +67,7 @@ export default class DatePicker extends Component {
                     />
                 }
                 translate={translate}
+                includeWeeks={includeWeeks}
             />
         );
     }
