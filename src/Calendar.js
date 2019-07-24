@@ -23,7 +23,7 @@ export default class Calendar extends Component {
         onClose: PropTypes.func.isRequired,
         highlightStart: PropTypes.instanceOf(DateTime),
         highlightEnd: PropTypes.instanceOf(DateTime),
-        hover: PropTypes.oneOf(['start', 'end']),
+        hover: PropTypes.oneOf(['start', 'end', 'week']),
         includeWeeks: PropTypes.bool,
         onWeekSelect: PropTypes.func,
         translate: PropTypes.func,
@@ -49,8 +49,8 @@ export default class Calendar extends Component {
     }
 
     static getDerivedStateFromProps(
-        { open, value, highlightStart, highlightEnd },
-        { month, weeks },
+        { open, value, hover, highlightStart, highlightEnd },
+        { month, weeks, hoverDate },
     ) {
         const updates = {};
         
@@ -58,6 +58,14 @@ export default class Calendar extends Component {
             updates.value = value.startOf('day');
         } else {
             updates.value = null;
+        }
+
+        if (hover === 'week' && hoverDate) {
+            updates.hoverDate = null;
+            updates.hoverWeek = Interval.fromDateTimes(
+                hoverDate.startOf('week'),
+                hoverDate.endOf('week'),
+            );
         }
 
         if (open) {
@@ -132,11 +140,11 @@ export default class Calendar extends Component {
         }
 
         return (
-            <div className="row">
+            <div className="row" key={dates[0]}>
                 {includeWeeks && (
                     <div {...weekProps}>
                         {this.translate('week.number', {
-                            weekNumber: dates[0].weekNumber,
+                            week: dates[0].weekNumber,
                         })}
                     </div>
                 )}

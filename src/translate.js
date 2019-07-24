@@ -30,7 +30,8 @@ export function configureTranslation(translationFunction) {
 configureTranslation({
     week: {
         label: 'Wk',
-        number: ({ weekNumber }) => `${weekNumber}`,
+        number: ({ week }) => `${week}`,
+        value: ({ year, week }) => `W${week} - ${year}`,
     },
     weekDay: {
         monday: 'Mo',

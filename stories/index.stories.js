@@ -2,13 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { DateTime, Interval } from 'luxon';
-import { DatePicker, DateRangePicker } from '../src/index';
+import { DatePicker, DateRangePicker, WeekPicker } from '../src/index';
 
 import 'semantic-ui-css/semantic.min.css';
 import '../src/daycy.css';
 
 const date = DateTime.local();
 const interval = Interval.fromDateTimes(date, date.plus({ weeks: 1 }));
+const week = { year: date.weekYear, week: date.weekNumber };
 
 storiesOf('DatePicker', module)
     .add('empty', () => (
@@ -83,5 +84,39 @@ storiesOf('DateRangePicker', module)
             onChange={action('changed')}
             style={{ margin: '1rem' }}
             includeWeeks
+        />
+    ));
+
+storiesOf('WeekPicker', module)
+    .add('empty', () => (
+        <WeekPicker 
+            placeholder="Week"
+            value={null}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ))
+    .add('filled', () => (
+        <WeekPicker
+            placeholder="Week"
+            value={week}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ))
+    .add('empty with dates', () => (
+        <WeekPicker includeDates
+            placeholder="Week"
+            value={null}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ))
+    .add('filled with dates', () => (
+        <WeekPicker includeDates
+            placeholder="Week"
+            value={week}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
         />
     ));

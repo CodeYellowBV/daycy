@@ -1,12 +1,9 @@
-/* DatePicker */
-
 .daycy.date-picker {
     max-width: 19.5rem;
 }
 
-/* DateRangePicker */
-
-.daycy.date-range-picker {
+.daycy.date-range-picker,
+.daycy.week-picker {
     display: flex;
     align-items: center;
     background-color: #FFF;
@@ -18,21 +15,26 @@
 
 .ui.form .daycy.date-picker,
 .daycy.date-picker.fluid,
+.ui.form .daycy.week-picker,
+.daycy.week-picker.fluid,
 .ui.form .daycy.date-range-picker,
 .daycy.date-range-picker.fluid {
     max-width: unset;
 }
 
-.daycy.date-range-picker.focus {
+.daycy.date-range-picker.focus,
+.daycy.week-picker.focus {
     border-color: #85b7d9;
 }
 
-.daycy.date-range-picker > .ui.input {
+.daycy.date-range-picker > .ui.input,
+.daycy.week-picker > .ui.input {
     flex: 1 1 auto;
     width: 0 !important;
 }
 
-.daycy.date-range-picker > .ui.input > input {
+.daycy.date-range-picker > .ui.input > input,
+.daycy.week-picker > .ui.input > input {
     background: unset !important;
     border: unset !important;
 }
@@ -46,6 +48,12 @@
     color: #888;
     margin-bottom: 0.3rem;
     margin-right: 0 !important;
+}
+
+.daycy.week-picker > label {
+    color: rgba(34, 36, 38, 0.3);
+    font-size: 80%;
+    padding-right: calc(1em / 0.8);
 }
 
 /* Calendar */
