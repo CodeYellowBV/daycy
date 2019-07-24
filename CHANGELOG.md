@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.5] - 2019-07-23
+### Added
+- Add `onWeekSelect` property to `DatePicker` to determine what should happen
+when someone selects a week in the `DatePicker`.
+
 ## [0.1.4] - 2019-07-04
 ### Added
 - Add `includeWeeks` property to both `DatePicker` and `DateRangePicker` for
@@ -27,6 +32,7 @@ Semantic UI Form.
 ### Added
 - First version of this project.
 
+[0.1.5]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.5
 [0.1.4]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.4
 [0.1.3]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.3
 [0.1.2]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.2
