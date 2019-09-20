@@ -1,8 +1,16 @@
-export function objectLookup(translations) {
+interface TranslationArgs {
+    [key: string]: any
+}
+export type TranslationFn = (key: string, args?: TranslationArgs) => string;
+type InnerTranslationFn = (args: TranslationArgs) => string;
+interface Translations {
+    [key: string]: Translations | string | InnerTranslationFn;
+}
+
+export function objectLookup(translations: Translations): TranslationFn {
     return (key, args = {}) => {
-        const parts = key.split('.');
-        let node = translations;
-        for (const part of parts) {
+        let node: Translations | string | InnerTranslationFn = translations;
+        for (const part of key.split('.')) {
             if (typeof node !== 'object') {
                 return key;
             }
@@ -18,16 +26,7 @@ export function objectLookup(translations) {
     };
 }
 
-export let translate = null;
-
-export function configureTranslation(translationFunction) {
-    if (typeof translationFunction === 'object') {
-        translationFunction = objectLookup(translationFunction);
-    }
-    translate = translationFunction;
-}
-
-configureTranslation({
+export let translate: TranslationFn = objectLookup({
     week: {
         label: 'Wk',
         number: ({ week }) => `${week}`,
@@ -57,3 +56,7 @@ configureTranslation({
         december: 'December',
     },
 });
+
+export function configureTranslation(func: Translations | TranslationFn) {
+    translate = typeof func === "object" ? objectLookup(func) : func;
+}

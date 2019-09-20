@@ -1,5 +1,10 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react", "minify"],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript",
+    "minify"
+  ],
   "plugins": [
     "@babel/plugin-proposal-class-properties"
   ]

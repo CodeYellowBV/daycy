@@ -7,9 +7,12 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "deploy-storybook": "storybook-to-ghpages",
-    "build-js": "babel src --out-dir dist",
-    "build-css": "mkdir -p dist && cp src/*.css dist/",
-    "build": "rm -rf dist && npm run -s build-js && npm run -s build-css",
+    "build:js": "babel src --out-dir dist --extensions '.ts,.tsx'",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:css": "mkdir -p dist && cp src/*.css dist/",
+    "build": "rm -rf dist && npm run -s build:js && npm run -s build:types && npm run -s build:css",
+    "check-types": "tsc --noEmit",
+    "check-types:watch": "tsc --noEmit -- --watch",
     "prepublish": "npm run -s build"
   },
   "keywords": [
@@ -27,18 +30,24 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.6.0",
     "@storybook/addon-actions": "^5.0.11",
+    "@storybook/addon-info": "^5.2.1",
     "@storybook/addon-links": "^5.0.11",
     "@storybook/addons": "^5.0.11",
     "@storybook/react": "^5.0.11",
     "@storybook/storybook-deployer": "^2.8.1",
+    "@types/luxon": "^1.15.2",
+    "@types/react": "^16.9.2",
+    "@types/storybook__react": "^4.0.2",
     "babel-loader": "^8.0.6",
     "babel-preset-minify": "^0.5.0",
-    "semantic-ui-css": "^2.4.1"
+    "react-docgen-typescript-loader": "^3.2.1",
+    "semantic-ui-css": "^2.4.1",
+    "typescript": "^3.6.3"
   },
   "dependencies": {
     "luxon": "^1.15.0",
-    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "semantic-ui-react": "^0.87.1"
   },

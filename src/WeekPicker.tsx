@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
+import Semantic, { Input } from 'semantic-ui-react';
 import { DateTime, Interval } from 'luxon';
+import { TranslationFn } from './translate';
 
 import { translate } from './translate';
 
 import Calendar from './Calendar';
 
-export function isoWeekStart({ year, week }) {
+interface ISOWeek {
+    year: number,
+    week: number,
+}
+
+export function isoWeekStart({ year, week }: ISOWeek): DateTime {
     return (
         DateTime.local(year, 1, 4)
         .plus({ weeks: week - 1})
@@ -15,7 +20,7 @@ export function isoWeekStart({ year, week }) {
     );
 }
 
-export function isoWeekEnd({ year, week }) {
+export function isoWeekEnd({ year, week }: ISOWeek): DateTime {
     return (
         DateTime.local(year, 1, 4)
         .plus({ weeks: week - 1})
@@ -23,45 +28,45 @@ export function isoWeekEnd({ year, week }) {
     );
 }
 
-export default class WeekPicker extends Component {
-    static propTypes = {
-        value: PropTypes.shape({
-            year: PropTypes.number.isRequired,      
-            week: PropTypes.number.isRequired,      
-        }),
-        onChange: PropTypes.func.isRequired,
-        translate: PropTypes.func,
-        fluid: PropTypes.bool,
-        format: PropTypes.string,
-        includeDates: PropTypes.bool,
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+interface WeekPickerProps extends Omit<Semantic.InputProps, "onChange"> {
+    value: ISOWeek;
+    onChange: (week: ISOWeek) => void;
+    translate?: TranslationFn;
+    fluid?: boolean;
+    format?: string;
+    includeDates?: boolean;
+    className?: string;
+    style?: React.CSSProperties;
+}
+
+interface WeekPickerState {
+    open: boolean;
+}
+
+export default class WeekPicker extends Component<WeekPickerProps, WeekPickerState> {
+    state: Readonly<WeekPickerState> = {
+        open: false,
     };
 
-    static defaultProps = {
-        fluid: false,
-        format: 'dd-LL-yyyy',
-        includeDates: false,
-    };
-
-    state = { open: false };
-
-    constructor(...args) {
-        super(...args);
+    constructor(props: WeekPickerProps, state: WeekPickerState) {
+        super(props, state);
         this.onChange = this.onChange.bind(this);
         this.onOpen = this.onOpen.bind(this);
         this.onClose = this.onClose.bind(this);
     }
 
-    onChange(value) {
+    onChange(value: Interval | DateTime) {
         const { onChange } = this.props;
         if (value instanceof Interval) {
             value = value.start;
         }
-        value = { year: value.weekYear, week: value.weekNumber };
-        onChange(value);
+        onChange({ year: value.weekYear, week: value.weekNumber });
         this.onClose();
     }
 
-    onOpen(e) {
+    onOpen(e: React.SyntheticEvent) {
         e.preventDefault();
         this.setState({ open: true });
     }
@@ -70,15 +75,23 @@ export default class WeekPicker extends Component {
         this.setState({ open: false });
     }
 
-    translate(...args) {
-        return (this.props.translate || translate)(...args);
+    get translate() {
+        return this.props.translate || translate;
     }
 
     render() {
-        const { value, includeDates, format, translate, className, fluid, style, ...props } = this.props;
+        const {
+            value,
+            translate, 
+            className, 
+            style, 
+            format = 'dd-LL-yyyy', 
+            fluid = false, 
+            includeDates = false,
+            onChange, // So that props type checks for Semantic.InputProps
+            ...props
+        } = this.props;
         const { open } = this.state;
-
-        delete props.onChange;
 
         const classes = ['daycy', 'week-picker'];
         if (className) {
@@ -94,7 +107,6 @@ export default class WeekPicker extends Component {
         return (
             <Calendar
                 open={open}
-                value={null}
                 onChange={this.onChange}
                 onClose={this.onClose}
                 highlightStart={value && isoWeekStart(value)}
