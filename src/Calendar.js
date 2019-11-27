@@ -20,7 +20,7 @@ export default class Calendar extends Component {
         open: PropTypes.bool.isRequired,
         value: PropTypes.instanceOf(DateTime),
         onChange: PropTypes.func.isRequired,
-        onClose: PropTypes.func.isRequired,
+        onClose: PropTypes.func,
         highlightStart: PropTypes.instanceOf(DateTime),
         highlightEnd: PropTypes.instanceOf(DateTime),
         hover: PropTypes.oneOf(['start', 'end', 'week']),
@@ -31,6 +31,7 @@ export default class Calendar extends Component {
 
     static defaultProps = {
         includeWeeks: false,
+        onClose: () => {},
     };
 
     state = { month: null, weeks: null, hoverWeek: null, hoverDate: null };

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Input } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import { Interval } from 'luxon';
 
+import DateInput from './DateInput';
 import Calendar from './Calendar';
 
 const OTHER = { start: 'end', end: 'start' };
@@ -37,17 +38,20 @@ export default class DateRangePicker extends Component {
     };
 
     state = { open: null, override: null };
+    container = null;
+    calendar = null;
 
     constructor(...args) {
         super(...args);
         this.onChange = this.onChange.bind(this);
+        this.onChangeNoClose = this.onChangeNoClose.bind(this);
         this.onWeekSelect = this.onWeekSelect.bind(this);
         this.onOpenStart = this.onOpenStart.bind(this);
         this.onOpenEnd = this.onOpenEnd.bind(this);
         this.onClose = this.onClose.bind(this);
     }
 
-    onChange(date) {
+    onChange(date, close = true) {
         let { value, onChange } = this.props;
         const { open, override } = this.state;
 
@@ -59,15 +63,34 @@ export default class DateRangePicker extends Component {
             (open === 'start' && date > value.end) ||
             (open === 'end' && date < value.start)
         ) {
+            const suiInput = this.container.getElementsByClassName(`${other}-date`)[0];
+            const input = suiInput.getElementsByTagName('input')[0];
+            input.focus();
+
             this.setState({
                 open: other,
                 override: { [open]: date, [other]: null },
             });
+            this.calendar.setState({
+                month: date.startOf('month'),
+                weeks: null,
+            });
         } else {
             value = { [open]: date, [other]: value[other] };
             onChange(Interval.fromDateTimes(value.start, value.end));
-            this.onClose();
+            if (close) {
+                this.onClose();
+            } else {
+                this.calendar.setState({
+                    month: date.startOf('month'),
+                    weeks: null,
+                });
+            }
         }
+    }
+
+    onChangeNoClose(date) {
+        return this.onChange(date, false);
     }
 
     onWeekSelect(week) {
@@ -121,6 +144,7 @@ export default class DateRangePicker extends Component {
 
         return (
             <Calendar
+                ref={(ref) => this.calendar = ref}
                 open={open !== null}
                 value={value[open]}
                 onChange={this.onChange}
@@ -129,17 +153,22 @@ export default class DateRangePicker extends Component {
                 highlightStart={value.start || value.end}
                 highlightEnd={value.end || value.start}
                 trigger={
-                    <div className={classes.join(' ')} {...props}>
-                        <Input
-                            readOnly className="start-date"
-                            value={value.start ? value.start.toFormat(format) : ''}
+                    <div
+                        ref={(ref) => this.container = ref}
+                        className={classes.join(' ')} {...props}
+                    >
+                        <DateInput
+                            className="start-date"
+                            value={value.start}
+                            onChange={this.onChangeNoClose}
                             onClick={this.onOpenStart}
                             {...startProps}
                         />
                         {icon}
-                        <Input
-                            readOnly className="end-date"
-                            value={value.end ? value.end.toFormat(format) : ''}
+                        <DateInput
+                            className="end-date"
+                            value={value.end}
+                            onChange={this.onChangeNoClose}
                             onClick={this.onOpenEnd}
                             {...endProps}
                         />

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
 import { DateTime } from 'luxon';
 
 import Calendar from './Calendar';
+import DateInput from './DateInput';
 
 export default class DatePicker extends Component {
     static propTypes = {
@@ -22,22 +22,34 @@ export default class DatePicker extends Component {
     };
 
     state = { open: false };
+    calendar = null;
 
     constructor(...args) {
         super(...args);
         this.onChange = this.onChange.bind(this);
+        this.onChangeNoClose = this.onChangeNoClose.bind(this);
         this.onOpen = this.onOpen.bind(this);
         this.onClose = this.onClose.bind(this);
     }
 
-    onChange(value) {
+    onChange(value, close = true) {
         const { onChange } = this.props;
         onChange(value);
-        this.onClose();
+        if (close) {
+            this.onClose();
+        } else {
+            this.calendar.setState({
+                month: value.startOf('month'),
+                weeks: null,
+            });
+        }
     }
 
-    onOpen(e) {
-        e.preventDefault();
+    onChangeNoClose(value) {
+        return this.onChange(value, false); 
+    }
+
+    onOpen() {
         this.setState({ open: true });
     }
 
@@ -53,17 +65,18 @@ export default class DatePicker extends Component {
 
         return (
             <Calendar
+                ref={(ref) => this.calendar = ref}
                 open={open}
                 value={value}
                 onChange={this.onChange}
                 onClose={this.onClose}
                 trigger={
-                    <Input
+                    <DateInput
                         className={`daycy date-picker${props.fluid ? ' fluid' : ''}`}
-                        value={value ? value.toFormat(format) : ''}
-                        readOnly
-                        focus={open}
+                        value={value}
+                        onChange={this.onChangeNoClose}
                         onClick={this.onOpen}
+                        focus={open}
                         {...props}
                     />
                 }
