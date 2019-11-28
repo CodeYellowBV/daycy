@@ -14,7 +14,7 @@ export default class DateInput extends Component {
         format: 'dd-LL-yyyy',
     };
 
-    state = { value: null };
+    state = { value: null, typeValue: null };
 
     constructor(...args) {
         super(...args);
