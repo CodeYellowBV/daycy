@@ -186,7 +186,7 @@ export default class Clock extends Component {
                 onClose={onClose}
             >
                 <div className="face">
-                    {range(5, 65, 5).map(this.renderMinute)}
+                    {range(0, 60, 5).map(this.renderMinute)}
                     {range(1, 13).map(this.renderHour)}
                     <div className={`period-bg ${period}`} />
                     {PERIODS.map(this.renderPeriod)}
