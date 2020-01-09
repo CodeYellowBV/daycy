@@ -1,8 +1,10 @@
-.daycy.date-picker {
+.daycy.date-picker,
+.daycy.time-picker {
     max-width: 19.5rem;
 }
 
 .daycy.date-range-picker,
+.daycy.time-range-picker,
 .daycy.week-picker {
     display: flex;
     align-items: center;
@@ -15,35 +17,44 @@
 
 .ui.form .daycy.date-picker,
 .daycy.date-picker.fluid,
+.ui.form .daycy.time-picker,
+.daycy.time-picker.fluid,
 .ui.form .daycy.week-picker,
 .daycy.week-picker.fluid,
 .ui.form .daycy.date-range-picker,
-.daycy.date-range-picker.fluid {
+.daycy.date-range-picker.fluid,
+.ui.form .daycy.time-range-picker,
+.daycy.time-range-picker.fluid {
     max-width: unset;
 }
 
 .daycy.date-range-picker.focus,
+.daycy.time-range-picker.focus,
 .daycy.week-picker.focus {
     border-color: #85b7d9;
 }
 
 .daycy.date-range-picker > .ui.input,
+.daycy.time-range-picker > .ui.input,
 .daycy.week-picker > .ui.input {
     flex: 1 1 auto;
     width: 0 !important;
 }
 
 .daycy.date-range-picker > .ui.input > input,
+.daycy.time-range-picker > .ui.input > input,
 .daycy.week-picker > .ui.input > input {
     background: unset !important;
     border: unset !important;
 }
 
-.daycy.date-range-picker > .ui.input.end-date > input {
+.daycy.date-range-picker > .ui.input.end-date > input,
+.daycy.time-range-picker > .ui.input.end-time > input {
     text-align: right;
 }
 
-.daycy.date-range-picker > .date-range-seperator {
+.daycy.date-range-picker > .date-range-seperator,
+.daycy.time-range-picker > .time-range-seperator {
     flex: 0 0 auto;
     color: #888;
     margin-bottom: 0.3rem;
@@ -162,4 +173,133 @@
 .daycy.calendar > .grid > .row:last-child > .cell.week {
     height: 3rem;
     margin-bottom: 0;
+}
+
+/* Clock */
+.daycy.clock {
+    padding: calc(1.5rem - 2px) !important;
+}
+
+.daycy.clock > .face {
+    position: relative;
+    width: calc(12rem + 4px);
+    height: calc(12rem + 4px);
+    border: 4px solid #F0F0F0;
+    border-radius: 9999px;
+}
+
+.daycy.clock > .face > .button {
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    cursor: pointer;
+
+    background-color: #F0F0F0;
+    border-radius: 9999px;
+
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5rem;
+
+    transform: translate(-2px, -2px) translate(-50%, -50%);
+
+    transition:
+        transform 300ms ease,
+        opacity 300ms ease,
+        color 300ms ease,
+        background-color 300ms ease;
+}
+
+.daycy.clock > .face > .button:hover {
+    background-color: #E0E0E0;
+}
+
+.daycy.clock > .face > .button.selected {
+    background-color: #2185d0;
+    color: #FFF;
+}
+
+.daycy.clock > .face > .button.disabled {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.daycy.clock > .face > .button.small {
+    transform: scale(0.75) translate(-2px, -2px) translate(-50%, -50%);
+    background-color: transparent;
+}
+
+.daycy.clock > .face > .button.small:hover {
+    background-color: #F0F0F0;
+}
+
+.daycy.clock > .face > .button.small.selected {
+    background-color: #2185d0;
+}
+
+.daycy.clock > .face > .pointer {
+    position: absolute;
+    transition: transform 300ms ease, opacity 900ms ease;
+}
+
+.daycy.clock > .face > .pointer.hide {
+    opacity: 0;
+}
+
+.daycy.clock > .face > .pointer.hour {
+    background-color: #2185d0;
+}
+
+.daycy.clock > .face > .pointer.minute {
+    background-color: #A0A0A0;
+}
+
+.daycy.clock > .face > .period {
+    border: none;
+    color: rgba(0, 0, 0, 0.5);
+    background-color: transparent;
+    width: 2rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.6rem;
+    line-height: 1rem;
+    cursor: pointer;
+
+    position: absolute;
+    top: calc(8rem - 2px);
+
+    transition: color 300ms ease;
+}
+
+.daycy.clock > .face > .period:hover {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.daycy.clock > .face > .period.selected {
+    color: #FFF;
+}
+
+.daycy.clock > .face > .period-bg {
+    background-color: #2185d0;
+    width: 2rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+
+    position: absolute;
+    top: calc(8rem - 2px);
+
+    transition: left 300ms ease;
+}
+
+.daycy.clock > .face > .period-bg.am,
+.daycy.clock > .face > .period.am {
+    left: calc(4rem - 2px);
+}
+
+.daycy.clock > .face > .period-bg.pm,
+.daycy.clock > .face > .period.pm {
+    left: calc(6rem - 2px);
 }

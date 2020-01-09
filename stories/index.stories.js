@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { DateTime, Interval } from 'luxon';
-import { DatePicker, DateRangePicker, WeekPicker } from '../src/index';
+import { DatePicker, DateRangePicker, TimePicker, TimeRangePicker, WeekPicker } from '../src/index';
 
 import 'semantic-ui-css/semantic.min.css';
 import '../src/daycy.css';
@@ -84,6 +84,44 @@ storiesOf('DateRangePicker', module)
             onChange={action('changed')}
             style={{ margin: '1rem' }}
             includeWeeks
+        />
+    ));
+
+storiesOf('TimePicker', module)
+    .add('empty', () => (
+        <TimePicker 
+            placeholder="Time"
+            value={null}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ))
+    .add('filled', () => (
+        <TimePicker 
+            placeholder="Time"
+            value={date}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ));
+
+storiesOf('TimeRangePicker', module)
+    .add('empty', () => (
+        <TimeRangePicker 
+            startPlaceholder="Start Time"
+            endPlaceholder="End Time"
+            value={null}
+            onChange={action('changed')}
+            style={{ margin: '1rem' }}
+        />
+    ))
+    .add('filled', () => (
+        <TimeRangePicker 
+            startPlaceholder="Start Time"
+            endPlaceholder="End Time"
+            value={interval}
+            onChange={action('changed')}
+            style={{ margin: '1rem' }}
         />
     ));
 

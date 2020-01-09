@@ -56,4 +56,8 @@ configureTranslation({
         november: 'November',
         december: 'December',
     },
+    period: {
+        am: 'AM',
+        pm: 'PM',
+    },
 });
