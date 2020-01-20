@@ -64,7 +64,7 @@ export default class Clock extends Component {
     }
 
     renderHour(hour) {
-        const { hour: selectedHour } = this.state;
+        const { hour: selectedHour, period } = this.state;
 
         const classes = ['button'];
 
@@ -89,7 +89,7 @@ export default class Clock extends Component {
                 onMouseLeave={() => this.setState({ hourHover: null, lastHourHover: hour })}
                 onClick={() => this.setState({ hour })}
             >
-                {hour}
+                {(period === 'pm' ? 12 : 0) + hour}
             </div>
         );
     }
