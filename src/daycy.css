@@ -85,11 +85,11 @@
 
 .daycy.calendar > .title > .icon {
     cursor: pointer;
-    color: rgb(34, 36, 38, 0.3);
+    color: rgba(34, 36, 38, 0.3);
 }
 
 .daycy.calendar > .title > .icon:hover {
-    color: rgb(34, 36, 38, 0.5);
+    color: rgba(34, 36, 38, 0.5);
 }
 
 .daycy.calendar > .grid > .row > .cell {
