@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
 import { DateTime } from 'luxon';
+import MaskedInput from 'react-text-mask';
+import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
 
 export default class DateInput extends Component {
     static propTypes = {
@@ -16,10 +19,13 @@ export default class DateInput extends Component {
 
     state = { value: null, typeValue: null };
 
+    autoCorrectedDatePipe = createAutoCorrectedDatePipe('dd-mm-yyyy');
+
     constructor(...args) {
         super(...args);
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
+        this.renderInput = this.renderInput.bind(this);
     }
 
     onChange(e, { value }) {
@@ -41,6 +47,22 @@ export default class DateInput extends Component {
         }
     }
 
+    renderInput(ref, { defaultValue, ...props }) {
+
+        return (
+            <Input
+                ref={(node) => {
+                    let domNode = ReactDOM.findDOMNode(node);
+                    if (domNode) {
+                        domNode = domNode.getElementsByTagName('input')[0];
+                    }
+                    return ref(domNode);
+                }}
+                {...props}
+            />
+        );
+    }
+
     render() {
         const { typeValue } = this.state; 
         const { format, value, ...props } = this.props;
@@ -49,7 +71,10 @@ export default class DateInput extends Component {
         delete props.onBlur;
 
         return (
-            <Input
+            <MaskedInput
+                mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/,  /\d/, /\d/]}
+                pipe={this.autoCorrectedDatePipe}
+                ut
                 value={
                     typeValue !== null
                     ? typeValue
@@ -59,6 +84,9 @@ export default class DateInput extends Component {
                 }
                 onChange={this.onChange}
                 onBlur={this.onBlur}
+                keepCharPositions={true}
+                guide={true}
+                render={this.renderInput}
                 {...props}
             />
         );
