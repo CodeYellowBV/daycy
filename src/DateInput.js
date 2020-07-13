@@ -19,7 +19,7 @@ export default class DateInput extends Component {
 
     state = { value: null, typeValue: null };
 
-    autoCorrectedDatePipe = createAutoCorrectedDatePipe('dd-mm-yyyy');
+    autoCorrectedDatePipe = createAutoCorrectedDatePipe(this.props.format);
 
     constructor(...args) {
         super(...args);
@@ -72,9 +72,7 @@ export default class DateInput extends Component {
 
         return (
             <MaskedInput
-                mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/,  /\d/, /\d/]}
                 pipe={this.autoCorrectedDatePipe}
-                ut
                 value={
                     typeValue !== null
                     ? typeValue
