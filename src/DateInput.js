@@ -11,12 +11,26 @@ const formats = {
     'dd-LL-yyyy': 'dd-mm-yyyy',
     'LL-dd-yyyy': 'mm-dd-yyyy',
     'yyyy-LL-dd': 'yyyy-mm-dd',
+    'dd/LL/yyyy': 'dd/mm/yyyy',
+    'LL/dd/yyyy': 'mm/dd/yyyy',
+    'yyyy/LL/dd': 'yyyy/mm/dd',
+    'dd-LL': 'dd-mm',
+    'LL-dd': 'mm-dd',
+    'dd/LL': 'dd/mm',
+    'LL/dd': 'mm/dd',
     'HH:mm': 'HH:MM',
 }
 const masks = {
     'dd-mm-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
     'mm-dd-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
     'yyyy-mm-dd': [/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/],
+    'dd/mm/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
+    'mm/dd/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
+    'yyyy/mm/dd': [/\d/,/\d/,/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/],
+    'dd-mm': [/\d/,/\d/,'-',/\d/,/\d/],
+    'mm-dd': [/\d/,/\d/,'-',/\d/,/\d/],
+    'dd/mm': [/\d/,/\d/,'/',/\d/,/\d/],
+    'mm/dd': [/\d/,/\d/,'/',/\d/,/\d/],
     'HH:MM': [/\d/,/\d/,':',/\d/,/\d/],
 }
 
