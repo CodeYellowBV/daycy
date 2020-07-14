@@ -74,12 +74,12 @@ export default class DateInput extends Component {
         };
     }
 
-    onChange(e, { value }) {
+    onChange(e) {
         const { format, onChange } = this.props;
 
-        this.setState({ typeValue: value });
+        this.setState({ typeValue: e.target.value });
 
-        const date = DateTime.fromFormat(value, format);
+        const date = DateTime.fromFormat(e.target.value, format);
         if (!date.invalid) {
             onChange(date);
         }
