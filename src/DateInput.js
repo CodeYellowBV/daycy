@@ -31,14 +31,33 @@ export default class DateInput extends Component {
         format: 'dd-LL-yyyy',
     };
 
-    state = { value: null, typeValue: null };
-    autoCorrectedDatePipe = Object.keys(formats).includes(this.props.format) ? createAutoCorrectedDatePipe(formats[this.props.format]) : null
+    state = {
+        value: null,
+        typeValue: null,
+        format: null,
+        autoCorrectedDatePipe: null,
+    };
 
     constructor(...args) {
         super(...args);
         this.onChange = this.onChange.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.renderInput = this.renderInput.bind(this);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.format === state.format) {
+            return null;
+        }
+
+        return {
+            format: props.format,
+            autoCorrectedDatePipe: (
+                Object.keys(formats).includes(props.format)
+                ? createAutoCorrectedDatePipe(formats[props.format])
+                : null
+            ),
+        };
     }
 
     onChange(e, { value }) {
@@ -76,17 +95,17 @@ export default class DateInput extends Component {
     }
 
     render() {
-        const { typeValue } = this.state; 
+        const { typeValue, autoCorrectedDatePipe } = this.state; 
         const { format, value, ...props } = this.props;
 
         delete props.onChange;
         delete props.onBlur;
 
-        if(this.autoCorrectedDatePipe !== null){
+        if (autoCorrectedDatePipe !== null) {
             return (
                 <MaskedInput
                     mask={masks[formats[format]]}
-                    pipe={this.autoCorrectedDatePipe}
+                    pipe={autoCorrectedDatePipe}
                     value={
                         typeValue !== null
                         ? typeValue
