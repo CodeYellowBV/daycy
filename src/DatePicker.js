@@ -58,7 +58,7 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const { value, format, translate, includeWeeks, onWeekSelect, ...props } = this.props;
+        const { value, translate, includeWeeks, onWeekSelect, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
