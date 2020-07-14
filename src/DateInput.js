@@ -6,6 +6,20 @@ import { DateTime } from 'luxon';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
 
+// we only support auto corrected date pipe for a fixed set of common date formats
+const formats = {
+    'dd-LL-yyyy': 'dd-mm-yyyy',
+    'LL-dd-yyyy': 'mm-dd-yyyy',
+    'yyyy-LL-dd': 'yyyy-mm-dd',
+    'HH:mm': 'HH:MM',
+}
+const masks = {
+    'dd-mm-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
+    'mm-dd-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
+    'yyyy-mm-dd': [/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/],
+    'HH:MM': [/\d/,/\d/,':',/\d/,/\d/],
+}
+
 export default class DateInput extends Component {
     static propTypes = {
         format: PropTypes.string,
@@ -18,8 +32,7 @@ export default class DateInput extends Component {
     };
 
     state = { value: null, typeValue: null };
-
-    autoCorrectedDatePipe = createAutoCorrectedDatePipe(this.props.format);
+    autoCorrectedDatePipe = Object.keys(formats).includes(this.props.format) ? createAutoCorrectedDatePipe(formats[this.props.format]) : null
 
     constructor(...args) {
         super(...args);
@@ -47,8 +60,7 @@ export default class DateInput extends Component {
         }
     }
 
-    renderInput(ref, { defaultValue, ...props }) {
-
+    renderInput(ref, props) {
         return (
             <Input
                 ref={(node) => {
@@ -70,23 +82,41 @@ export default class DateInput extends Component {
         delete props.onChange;
         delete props.onBlur;
 
-        return (
-            <MaskedInput
-                pipe={this.autoCorrectedDatePipe}
-                value={
-                    typeValue !== null
-                    ? typeValue
-                    : value
-                    ? value.toFormat(format)
-                    : ''
-                }
-                onChange={this.onChange}
-                onBlur={this.onBlur}
-                keepCharPositions={true}
-                guide={true}
-                render={this.renderInput}
-                {...props}
-            />
-        );
+        if(this.autoCorrectedDatePipe !== null){
+            return (
+                <MaskedInput
+                    mask={masks[formats[format]]}
+                    pipe={this.autoCorrectedDatePipe}
+                    value={
+                        typeValue !== null
+                        ? typeValue
+                        : value
+                        ? value.toFormat(format)
+                        : ''
+                    }
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    keepCharPositions={true}
+                    guide={true}
+                    render={this.renderInput}
+                    {...props}
+                />
+            );
+        } else {
+            return ( 
+                <Input
+                    value={
+                        typeValue !== null
+                        ? typeValue
+                        : value
+                        ? value.toFormat(format)
+                        : ''
+                    }
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    {...props}
+                />
+            );
+        }
     }
 }
