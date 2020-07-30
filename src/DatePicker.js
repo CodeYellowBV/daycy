@@ -36,7 +36,7 @@ export default class DatePicker extends Component {
         const { onChange } = this.props;
         onChange(value);
         if (close) {
-            this.onClose();
+            this.input.inputRef.current.blur();
         } else {
             this.calendar.setState({
                 month: value.startOf('month'),
@@ -53,7 +53,7 @@ export default class DatePicker extends Component {
         this.setState({ open: true });
     }
 
-    onClose() {
+    onClose(e) {
         this.setState({ open: false });
     }
 
@@ -69,14 +69,15 @@ export default class DatePicker extends Component {
                 open={open}
                 value={value}
                 onChange={this.onChange}
-                onClose={this.onClose}
                 trigger={
                     <DateInput
+                        innerRef={(ref) => this.input = ref}
                         className={`daycy date-picker${props.fluid ? ' fluid' : ''}`}
                         value={value}
                         onChange={this.onChangeNoClose}
-                        onClick={this.onOpen}
                         focus={open}
+                        onFocus={this.onOpen}
+                        onBlur={this.onClose}
                         {...props}
                     />
                 }

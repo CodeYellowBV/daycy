@@ -33,7 +33,7 @@ export default class TimePicker extends Component {
         const { onChange } = this.props;
         onChange(value);
         if (close) {
-            this.onClose();
+            this.input.inputRef.current.blur();
         }
     }
 
@@ -60,14 +60,15 @@ export default class TimePicker extends Component {
                 open={open}
                 value={value}
                 onChange={this.onChange}
-                onClose={this.onClose}
                 translate={translate}
                 trigger={
                     <TimeInput
+                        innerRef={(ref) => this.input = ref}
                         className={`daycy time-picker${props.fluid ? ' fluid' : ''}`}
                         value={value}
                         onChange={this.onChangeNoClose}
-                        onClick={this.onOpen}
+                        onFocus={this.onOpen}
+                        onBlur={this.onClose}
                         focus={open}
                         {...props}
                     />

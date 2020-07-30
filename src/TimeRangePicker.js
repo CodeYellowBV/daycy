@@ -67,7 +67,9 @@ export default class TimeRangePicker extends Component {
             value = { [open]: time, [other]: value[other] };
             onChange(Interval.fromDateTimes(value.start, value.end));
             if (close) {
-                this.onClose();
+                const suiInput = this.container.getElementsByClassName(`${open}-time`)[0];
+                const input = suiInput.getElementsByTagName('input')[0];
+                input.blur();
             }
         }
     }
@@ -124,7 +126,6 @@ export default class TimeRangePicker extends Component {
                 open={open !== null}
                 value={value[open]}
                 onChange={this.onChange}
-                onClose={this.onClose}
                 trigger={
                     <div
                         ref={(ref) => this.container = ref}
@@ -134,7 +135,8 @@ export default class TimeRangePicker extends Component {
                             className="start-time"
                             value={value.start}
                             onChange={this.onChangeNoClose}
-                            onClick={this.onOpenStart}
+                            onFocus={this.onOpenStart}
+                            onBlur={this.onClose}
                             {...startProps}
                         />
                         {icon}
@@ -142,7 +144,8 @@ export default class TimeRangePicker extends Component {
                             className="end-time"
                             value={value.end}
                             onChange={this.onChangeNoClose}
-                            onClick={this.onOpenEnd}
+                            onFocus={this.onOpenEnd}
+                            onBlur={this.onClose}
                             {...endProps}
                         />
                     </div>

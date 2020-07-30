@@ -184,6 +184,7 @@ export default class Clock extends Component {
                 open={open}
                 on="click"
                 onClose={onClose}
+                onMouseDown={(e) => e.preventDefault()}
             >
                 <div className="face">
                     {range(0, 60, 5).map(this.renderMinute)}

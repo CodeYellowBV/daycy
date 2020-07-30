@@ -93,10 +93,13 @@ export default class DateInput extends Component {
         }
     }
 
-    renderInput(ref, props) {
+    renderInput(ref, { inputRef, ...props }) {
         return (
             <Input
                 ref={(node) => {
+                    if (inputRef) {
+                        inputRef(node);
+                    }
                     let domNode = ReactDOM.findDOMNode(node);
                     if (domNode) {
                         domNode = domNode.getElementsByTagName('input')[0];
@@ -110,7 +113,7 @@ export default class DateInput extends Component {
 
     render() {
         const { typeValue, autoCorrectedDatePipe } = this.state; 
-        const { format, value, ...props } = this.props;
+        const { format, value, innerRef, ...props } = this.props;
 
         delete props.onChange;
         delete props.onBlur;
@@ -131,6 +134,7 @@ export default class DateInput extends Component {
                     onBlur={this.onBlur}
                     keepCharPositions={true}
                     guide={true}
+                    inputRef={innerRef}
                     render={this.renderInput}
                     {...props}
                 />
@@ -145,6 +149,7 @@ export default class DateInput extends Component {
                         ? value.toFormat(format)
                         : ''
                     }
+                    ref={innerRef}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
                     {...props}

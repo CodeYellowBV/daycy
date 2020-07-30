@@ -225,6 +225,7 @@ export default class Calendar extends Component {
                 open={open} 
                 on="click" 
                 onClose={onClose}
+                onMouseDown={(e) => e.preventDefault()}
             >
                 <div className="title">
                     <Icon name="chevron left" onClick={this.setPrevMonth} />
