@@ -25,6 +25,7 @@ export default class DateRangePicker extends Component {
         fluid: PropTypes.bool,
         translate: PropTypes.func,
         includeWeeks: PropTypes.bool,
+        disabled: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -35,6 +36,7 @@ export default class DateRangePicker extends Component {
         startPlaceholder: '',
         endPlaceholder: '',
         fluid: false,
+        disabled: false,
     };
 
     state = { open: null, override: null };
@@ -118,7 +120,7 @@ export default class DateRangePicker extends Component {
     render() {
         let {
             value, format, icon, translate, startProps, endProps,
-            startPlaceholder, endPlaceholder, fluid, includeWeeks,
+            startPlaceholder, endPlaceholder, fluid, includeWeeks, disabled,
             ...props
         } = this.props;
         const { open, override } = this.state;
@@ -164,6 +166,7 @@ export default class DateRangePicker extends Component {
                             onChange={this.onChangeNoClose}
                             onFocus={this.onOpenStart}
                             onBlur={this.onClose}
+                            disabled={disabled}
                             {...startProps}
                         />
                         {icon}
@@ -173,6 +176,7 @@ export default class DateRangePicker extends Component {
                             onChange={this.onChangeNoClose}
                             onFocus={this.onOpenEnd}
                             onBlur={this.onClose}
+                            disabled={disabled}
                             {...endProps}
                         />
                     </div>

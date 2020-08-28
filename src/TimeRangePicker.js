@@ -24,6 +24,7 @@ export default class TimeRangePicker extends Component {
         endPlaceholder: PropTypes.string,
         fluid: PropTypes.bool,
         translate: PropTypes.func,
+        disabled: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -34,6 +35,7 @@ export default class TimeRangePicker extends Component {
         startPlaceholder: '',
         endPlaceholder: '',
         fluid: false,
+        disabled: false,
     };
 
     state = { open: null, override: null };
@@ -95,7 +97,7 @@ export default class TimeRangePicker extends Component {
     render() {
         let {
             value, format, icon, translate, startProps, endProps,
-            startPlaceholder, endPlaceholder, fluid,
+            startPlaceholder, endPlaceholder, fluid, disabled,
             ...props
         } = this.props;
         const { open, override } = this.state;
@@ -137,6 +139,7 @@ export default class TimeRangePicker extends Component {
                             onChange={this.onChangeNoClose}
                             onFocus={this.onOpenStart}
                             onBlur={this.onClose}
+                            disabled={disabled}
                             {...startProps}
                         />
                         {icon}
@@ -146,6 +149,7 @@ export default class TimeRangePicker extends Component {
                             onChange={this.onChangeNoClose}
                             onFocus={this.onOpenEnd}
                             onBlur={this.onClose}
+                            disabled={disabled}
                             {...endProps}
                         />
                     </div>
