@@ -12,11 +12,13 @@ export default class TimePicker extends Component {
         format: PropTypes.string,
         fluid: PropTypes.bool,
         translate: PropTypes.func,
+        noPopup: PropTypes.bool,
     };
 
     static defaultProps = {
         format: 'H:mm',
         fluid: false,
+        noPopup: false,
     };
 
     state = { open: false };
@@ -50,14 +52,14 @@ export default class TimePicker extends Component {
     }
 
     render() {
-        const { value, format, translate, ...props } = this.props;
+        const { value, format, translate, noPopup, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
 
         return (
             <Clock
-                open={open}
+                open={!noPopup && open}
                 value={value}
                 onChange={this.onChange}
                 translate={translate}

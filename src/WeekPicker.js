@@ -34,12 +34,14 @@ export default class WeekPicker extends Component {
         fluid: PropTypes.bool,
         format: PropTypes.string,
         includeDates: PropTypes.bool,
+        noPopup: PropTypes.bool,
     };
 
     static defaultProps = {
         fluid: false,
         format: 'dd-LL-yyyy',
         includeDates: false,
+        noPopup: false,
     };
 
     state = { open: false };
@@ -75,7 +77,7 @@ export default class WeekPicker extends Component {
     }
 
     render() {
-        const { value, includeDates, format, translate, className, fluid, style, ...props } = this.props;
+        const { value, includeDates, format, translate, className, fluid, style, noPopup, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
@@ -93,7 +95,7 @@ export default class WeekPicker extends Component {
 
         return (
             <Calendar
-                open={open}
+                open={!noPopup && open}
                 value={null}
                 onChange={this.onChange}
                 onClose={this.onClose}

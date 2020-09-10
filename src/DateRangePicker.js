@@ -26,6 +26,7 @@ export default class DateRangePicker extends Component {
         translate: PropTypes.func,
         includeWeeks: PropTypes.bool,
         disabled: PropTypes.bool,
+        noPopup: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -37,6 +38,7 @@ export default class DateRangePicker extends Component {
         endPlaceholder: '',
         fluid: false,
         disabled: false,
+        noPopup: false,
     };
 
     state = { open: null, override: null };
@@ -121,6 +123,7 @@ export default class DateRangePicker extends Component {
         let {
             value, format, icon, translate, startProps, endProps,
             startPlaceholder, endPlaceholder, fluid, includeWeeks, disabled,
+            noPopup,
             ...props
         } = this.props;
         const { open, override } = this.state;
@@ -149,7 +152,7 @@ export default class DateRangePicker extends Component {
         return (
             <Calendar
                 ref={(ref) => this.calendar = ref}
-                open={open !== null}
+                open={!noPopup && open !== null}
                 value={value[open]}
                 onChange={this.onChange}
                 hover={open}

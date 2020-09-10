@@ -14,11 +14,13 @@ export default class DatePicker extends Component {
         fluid: PropTypes.bool,
         includeWeeks: PropTypes.bool,
         onWeekSelect: PropTypes.func,
+        noPopup: PropTypes.bool,
     };
 
     static defaultProps = {
         format: 'dd-LL-yyyy',
         fluid: false,
+        noPopup: false,
     };
 
     state = { open: false };
@@ -58,7 +60,7 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const { value, translate, includeWeeks, onWeekSelect, ...props } = this.props;
+        const { value, translate, includeWeeks, onWeekSelect, noPopup, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
@@ -66,7 +68,7 @@ export default class DatePicker extends Component {
         return (
             <Calendar
                 ref={(ref) => this.calendar = ref}
-                open={open}
+                open={!noPopup && open}
                 value={value}
                 onChange={this.onChange}
                 trigger={
