@@ -33,12 +33,40 @@ const masks = {
     'mm/dd': [/\d/,/\d/,'/',/\d/,/\d/],
     'HH:MM': [/\d/,/\d/,':',/\d/,/\d/],
 }
+const formatKeepDateDefault = {
+    'dd-LL-yyyy': false,
+    'LL-dd-yyyy': false,
+    'yyyy-LL-dd': false,
+    'dd/LL/yyyy': false,
+    'LL/dd/yyyy': false,
+    'yyyy/LL/dd': false,
+    'dd-LL': false,
+    'LL-dd': false,
+    'dd/LL': false,
+    'LL/dd': false,
+    'HH:mm': true,
+}
+const formatKeepTimeDefault = {
+    'dd-LL-yyyy': true,
+    'LL-dd-yyyy': true,
+    'yyyy-LL-dd': true,
+    'dd/LL/yyyy': true,
+    'LL/dd/yyyy': true,
+    'yyyy/LL/dd': true,
+    'dd-LL': true,
+    'LL-dd': true,
+    'dd/LL': true,
+    'LL/dd': true,
+    'HH:mm': false,
+}
 
 export default class DateInput extends Component {
     static propTypes = {
         format: PropTypes.string,
         value: PropTypes.instanceOf(DateTime),
         onChange: PropTypes.func.isRequired,
+        keepDate: PropTypes.bool,
+        keepTime: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -46,7 +74,6 @@ export default class DateInput extends Component {
     };
 
     state = {
-        value: null,
         typeValue: null,
         format: null,
         autoCorrectedDatePipe: null,
@@ -74,12 +101,39 @@ export default class DateInput extends Component {
         };
     }
 
+    get keepDate() {
+        const { keepDate, format } = this.props;
+        return keepDate ?? formatKeepDateDefault[format] ?? false;
+    }
+
+    get keepTime() {
+        const { keepTime, format } = this.props;
+        return keepTime ?? formatKeepTimeDefault[format] ?? false;
+    }
+
     onChange(e) {
-        const { format, onChange } = this.props;
+        const { value, format, onChange } = this.props;
 
         this.setState({ typeValue: e.target.value });
 
-        const date = DateTime.fromFormat(e.target.value, format);
+        let date = DateTime.fromFormat(e.target.value, format);
+
+        if (value && this.keepDate) {
+            let date = date.set({
+                year: value.year,
+                month: value.month,
+                day: value.day,
+            });
+        }
+        if (value && this.keepTime) {
+            let date = date.set({
+                hour: value.hour,
+                minute: value.minute,
+                second: value.second,
+                millisecond: value.millisecond,
+            });
+        }
+
         if (!date.invalid) {
             onChange(date);
         }
