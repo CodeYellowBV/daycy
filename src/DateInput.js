@@ -119,14 +119,14 @@ export default class DateInput extends Component {
         let date = DateTime.fromFormat(e.target.value, format);
 
         if (value && this.keepDate) {
-            let date = date.set({
+            date = date.set({
                 year: value.year,
                 month: value.month,
                 day: value.day,
             });
         }
         if (value && this.keepTime) {
-            let date = date.set({
+            date = date.set({
                 hour: value.hour,
                 minute: value.minute,
                 second: value.second,
