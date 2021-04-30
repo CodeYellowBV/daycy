@@ -63,6 +63,18 @@ export default class Clock extends Component {
         return (this.props.translate || translate)(...args);
     }
 
+    onChange(date) {
+        const { value, onChange } = this.props
+        if (value) {
+            date = date.set({
+                year: value.year,
+                month: value.month,
+                day: value.day,
+            })
+        }
+        onChange(date)
+    }
+
     renderHour(hour) {
         const { hour: selectedHour, period } = this.state;
 
@@ -95,7 +107,6 @@ export default class Clock extends Component {
     }
 
     renderMinute(minute) {
-        const { onChange } = this.props;
         const { period, hour } = this.state;
 
         const classes = ['button'];
@@ -117,7 +128,7 @@ export default class Clock extends Component {
                 onMouseEnter={() => this.setState({ minuteHover: minute })}
                 onMouseLeave={() => this.setState({ minuteHover: null, lastMinuteHover: minute })}
                 onClick={() => {
-                    onChange(DateTime.fromObject({ hour: (hour + (period === 'pm' ? 12 : 0)) % 24, minute }))
+                    this.onChange(DateTime.fromObject({ hour: (hour + (period === 'pm' ? 12 : 0)) % 24, minute }))
                     this.setState({
                         period: 'am',
 

@@ -120,6 +120,19 @@ export default class Calendar extends Component {
         });
     }
 
+    onChange(date) {
+        const { value, onChange } = this.props
+        if (value) {
+            date = date.set({
+                hour: value.hour,
+                minute: value.minute,
+                second: value.second,
+                millisecond: value.millisecond,
+            })
+        }
+        onChange(date)
+    }
+
     renderDay(day, i) {
         return (
             <div className={`cell label${i === 0 ? ' first' : ''}`} key={day}>
@@ -155,7 +168,7 @@ export default class Calendar extends Component {
     }
 
     renderDate(date, i) {
-        const { hover, highlightStart, highlightEnd, onChange } = this.props;
+        const { hover, highlightStart, highlightEnd } = this.props;
         const { value, month, hoverWeek, hoverDate } = this.state;
 
         const classes = ['cell', 'day'];
@@ -204,7 +217,7 @@ export default class Calendar extends Component {
             <div
                 key={date}
                 className={classes.join(' ')}
-                onClick={() => onChange(date)}
+                onClick={() => this.onChange(date)}
                 onMouseEnter={() => this.setState({ hoverDate: date })}
                 onMouseLeave={() => this.setState({ hoverDate: null })}
             >
