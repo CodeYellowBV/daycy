@@ -4,6 +4,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.10] - 2020-09-10
+### Added
+- Added support for `noPopup` prop to all picker components.
+
+## [0.4.9] - 2020-08-28
+### Added
+- Added support for `disabled` to `DateRangePicker` and `TimeRangePicker`.
+
+## [0.4.8] - 2020-07-30
+### Changed
+- Changed open/close of calendar/clock to be more tightly coupled to the focus state of the input.
+
+## [0.4.7] - 2020-07-14
+### Fixed
+- Fix issue with onChange in `DateInput`.
+
+## [0.4.6] - 2020-07-14
+### Added
+- Added support for more formats for smart typing in `DateInput`.
+
+## [0.4.5] - 2020-07-14
+### Fixed
+- Fixed some issues with date format pipes in `DateInput`.
+
+## [0.4.4] - 2020-07-14
+### Added
+- Make `DateInput` support smart typing validation for certain date formats.
+
+## [0.4.3] - 2020-01-20
+### Changed
+- Make `TimeInput` inherit from `DateInput`.
+
+## [0.4.2] - 2020-01-09
+### Fixed
+- Fixed issue in clock where AM/PM would not work correctly.
+
+## [0.4.1] - 2020-01-09
+### Fixed
+- Fixed issue in clock where minutes would display as 60 instead of 0.
+
+## [0.4.0] - 2020-01-09
+### Added
+- Added `TimeInput`, `TimePicker` and `TimeRangePicker`.
+
+## [0.3.1] - 2019-11-28
+### Fixed
+- Fixed initial state for `typeValue` in `DateInput`
+
 ## [0.3.0] - 2019-11-27
 ### Added
 - Add the ability to type to `DatePicker` and `DateRangePicker`.
@@ -43,10 +91,23 @@ Semantic UI Form.
 ### Added
 - First version of this project.
 
-[0.2.0]: https://github.com/CodeYellowBV/daycy/releases/tag/0.2.0
-[0.1.5]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.5
-[0.1.4]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.4
-[0.1.3]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.3
-[0.1.2]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.2
-[0.1.1]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.1
-[0.1.0]: https://github.com/CodeYellowBV/daycy/releases/tag/0.1.0
+[0.4.10]: https://github.com/CodeYellowBV/daycy/compare/0.4.9...0.4.10
+[0.4.9]: https://github.com/CodeYellowBV/daycy/compare/0.4.8...0.4.9
+[0.4.8]: https://github.com/CodeYellowBV/daycy/compare/0.4.7...0.4.8
+[0.4.7]: https://github.com/CodeYellowBV/daycy/compare/0.4.6...0.4.7
+[0.4.6]: https://github.com/CodeYellowBV/daycy/compare/0.4.5...0.4.6
+[0.4.5]: https://github.com/CodeYellowBV/daycy/compare/0.4.4...0.4.5
+[0.4.4]: https://github.com/CodeYellowBV/daycy/compare/0.4.3...0.4.4
+[0.4.3]: https://github.com/CodeYellowBV/daycy/compare/0.4.2...0.4.3
+[0.4.2]: https://github.com/CodeYellowBV/daycy/compare/0.4.1...0.4.2
+[0.4.1]: https://github.com/CodeYellowBV/daycy/compare/0.4.0...0.4.1
+[0.4.0]: https://github.com/CodeYellowBV/daycy/compare/0.3.1...0.4.0
+[0.3.1]: https://github.com/CodeYellowBV/daycy/compare/0.3.0...0.3.1
+[0.3.0]: https://github.com/CodeYellowBV/daycy/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/CodeYellowBV/daycy/compare/0.1.5...0.2.0
+[0.1.5]: https://github.com/CodeYellowBV/daycy/compare/0.1.4...0.1.5
+[0.1.4]: https://github.com/CodeYellowBV/daycy/compare/0.1.3...0.1.4
+[0.1.3]: https://github.com/CodeYellowBV/daycy/compare/0.1.2...0.1.3
+[0.1.2]: https://github.com/CodeYellowBV/daycy/compare/0.1.1...0.1.2
+[0.1.1]: https://github.com/CodeYellowBV/daycy/compare/0.1.0...0.1.1
+[0.1.0]: https://github.com/CodeYellowBV/daycy/tree/0.1.0
