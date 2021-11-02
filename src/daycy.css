@@ -5,7 +5,8 @@
 
 .daycy.date-range-picker,
 .daycy.time-range-picker,
-.daycy.week-picker {
+.daycy.week-picker,
+.daycy.month-picker {
     display: flex;
     align-items: center;
     background-color: #FFF;
@@ -21,6 +22,8 @@
 .daycy.time-picker.fluid,
 .ui.form .daycy.week-picker,
 .daycy.week-picker.fluid,
+.ui.form .daycy.month-picker,
+.daycy.month-picker.fluid,
 .ui.form .daycy.date-range-picker,
 .daycy.date-range-picker.fluid,
 .ui.form .daycy.time-range-picker,
@@ -30,20 +33,23 @@
 
 .daycy.date-range-picker.focus,
 .daycy.time-range-picker.focus,
-.daycy.week-picker.focus {
+.daycy.week-picker.focus,
+.daycy.month-picker.focus  {
     border-color: #85b7d9;
 }
 
 .daycy.date-range-picker > .ui.input,
 .daycy.time-range-picker > .ui.input,
-.daycy.week-picker > .ui.input {
+.daycy.week-picker > .ui.input
+.daycy.month-picker > .ui.input {
     flex: 1 1 auto;
     width: 0 !important;
 }
 
 .daycy.date-range-picker > .ui.input > input,
 .daycy.time-range-picker > .ui.input > input,
-.daycy.week-picker > .ui.input > input {
+.daycy.week-picker > .ui.input > input,
+.daycy.month-picker > .ui.input > input  {
     background: unset !important;
     border: unset !important;
 }
@@ -302,4 +308,72 @@
 .daycy.clock > .face > .period-bg.pm,
 .daycy.clock > .face > .period.pm {
     left: calc(6rem - 2px);
+}
+
+/* Month Calendar */
+.daycy.month-calendar {
+    padding: 0;
+}
+
+.daycy.month-calendar > .title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 120%;
+    font-weight: bold;
+    border-bottom: 2px solid rgba(23, 23, 24, 0.15);
+    padding: 0.883rem 1rem;
+    color: rgb(34, 36, 38);
+}
+
+.daycy.month-calendar > .title > .icon {
+    cursor: pointer;
+    color: rgba(34, 36, 38, 0.3);
+}
+
+.daycy.month-calendar > .title > .icon:hover {
+    color: rgba(34, 36, 38, 0.5);
+}
+
+.daycy.month-calendar > .grid{
+    display: grid;
+}
+
+.daycy.month-calendar > .grid > .row > .cell {
+    display: inline-block;
+    width: 8rem;
+    height: 2.5rem;
+    text-align: center;
+    line-height: 2.3rem;
+    color: rgb(34, 36, 38);
+    border: 1px solid rgba(23, 23, 24, 0.15);
+    border-top: unset !important;
+    border-left: unset !important;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.daycy.month-calendar > .grid > .row > .cell.selected {
+    background-color: #2185d0;
+    color: #FFF;
+    font-weight: bold;
+    border-color: rgba(34, 36, 38, 0.4);
+}
+
+.daycy.month-calendar > .grid > .row > .cell.hover {
+    border-width: 1px;
+    border-style: solid;
+    line-height: calc(2.3rem - 2px);
+}
+
+.daycy.month-calendar > .grid > .row > .cell:last-child {
+    border-right: unset !important;
+}
+
+.daycy.month-calendar > .grid > .row:last-child > .cell {
+    border-bottom: unset !important;
+}
+
+.daycy.month-calendar > .grid > .row:last-child > .cell.month {
+    height: 3rem;
+    margin-bottom: 0;
 }

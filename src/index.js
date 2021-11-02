@@ -9,5 +9,6 @@ export { default as TimePicker } from './TimePicker';
 export { default as TimeRangePicker } from './TimeRangePicker';
 
 export { default as WeekPicker } from './WeekPicker';
+export { default as MonthPicker } from './MonthPicker';
 
 export { configureTranslation, objectLookup } from './translate';
