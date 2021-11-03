@@ -5,8 +5,7 @@
 
 .daycy.date-range-picker,
 .daycy.time-range-picker,
-.daycy.week-picker,
-.daycy.month-picker {
+.daycy.week-picker {
     display: flex;
     align-items: center;
     background-color: #FFF;
@@ -22,8 +21,6 @@
 .daycy.time-picker.fluid,
 .ui.form .daycy.week-picker,
 .daycy.week-picker.fluid,
-.ui.form .daycy.month-picker,
-.daycy.month-picker.fluid,
 .ui.form .daycy.date-range-picker,
 .daycy.date-range-picker.fluid,
 .ui.form .daycy.time-range-picker,
@@ -33,14 +30,13 @@
 
 .daycy.date-range-picker.focus,
 .daycy.time-range-picker.focus,
-.daycy.week-picker.focus,
-.daycy.month-picker.focus  {
+.daycy.week-picker.focus {
     border-color: #85b7d9;
 }
 
 .daycy.date-range-picker > .ui.input,
 .daycy.time-range-picker > .ui.input,
-.daycy.week-picker > .ui.input
+.daycy.week-picker > .ui.input,
 .daycy.month-picker > .ui.input {
     flex: 1 1 auto;
     width: 0 !important;

@@ -21,7 +21,7 @@ export default class MonthPicker extends Component {
     };
 
     static defaultProps = {
-        format: 'MMMM yyyy',
+        format: 'LL-yyyy',
         fluid: false,
         noPopup: false,
     };
@@ -31,6 +31,7 @@ export default class MonthPicker extends Component {
     constructor(...args) {
         super(...args);
         this.onChange = this.onChange.bind(this);
+        this.onChangeNoClose = this.onChangeNoClose.bind(this);
         this.onOpen = this.onOpen.bind(this);
         this.onClose = this.onClose.bind(this);
     }
@@ -40,7 +41,18 @@ export default class MonthPicker extends Component {
 
         value = { year: value.year, month: value.month };
         onChange(value);
-        this.onClose();
+        if (close) {
+            this.input.inputRef.current.blur();
+        } else {
+            this.calendar.setState({
+                month: value.startOf('month'),
+                weeks: null,
+            });
+        }
+    }
+
+    onChangeNoClose(value) {
+        return this.onChange(value, false); 
     }
 
     onOpen(e) {
@@ -57,7 +69,7 @@ export default class MonthPicker extends Component {
     }
 
     render() {
-        const { value, format, className, fluid, style, translate, noPopup, ...props } = this.props;
+        const { value, className, fluid, translate, noPopup, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
@@ -82,8 +94,8 @@ export default class MonthPicker extends Component {
                 trigger={
                     <MonthInput
                         innerRef={(ref) => this.input = ref}
-                        className={`daycy month-picker${props.fluid ? ' fluid' : ''}`}
-                        value={value !== null ? new DateTime(value.year, value.month) : null}
+                        className={classes.join(' ')}
+                        value={value !== null ? DateTime.fromObject(value) : null}
                         onChange={this.onChange}
                         onFocus={this.onOpen}
                         onBlur={this.onClose}

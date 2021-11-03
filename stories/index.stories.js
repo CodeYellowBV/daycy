@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { DateTime, Interval } from 'luxon';
@@ -12,37 +12,38 @@ const interval = Interval.fromDateTimes(date, date.plus({ weeks: 1 }));
 const week = { year: date.weekYear, week: date.weekNumber };
 const month = { year: date.year, month: date.month };
 
+class Stateful extends Component {
+    state = { value: null };
+
+    render() {
+        const { Component, ...props } = this.props;
+        return (
+            <>
+                <div><b>Input:</b></div>
+                <Component
+                    value={this.state.value}
+                    onChange={(value) => this.setState({ value })}
+                    {...props}
+                />
+                <div><b>Value:</b></div>
+                {JSON.stringify(this.state.value)}
+            </>
+        );
+    }
+}
+
 storiesOf('DatePicker', module)
-    .add('empty', () => (
-        <DatePicker
+    .add('basic', () => (
+        <Stateful
+            Component={DatePicker}
             placeholder="Date"
-            value={null}
-            onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
         />
     ))
-    .add('filled', () => (
-        <DatePicker
+    .add('with weeks', () => (
+        <Stateful
+            Component={DatePicker}
             placeholder="Date"
-            value={date}
-            onChange={action('changed')}
-            style={{ margin: '1rem', width: '19.5rem' }}
-        />
-    ))
-    .add('empty with weeks', () => (
-        <DatePicker
-            placeholder="Date"
-            value={null}
-            onChange={action('changed')}
-            style={{ margin: '1rem', width: '19.5rem' }}
-            includeWeeks
-        />
-    ))
-    .add('filled with weeks', () => (
-        <DatePicker
-            placeholder="Date"
-            value={date}
-            onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
             includeWeeks
         />
@@ -50,39 +51,18 @@ storiesOf('DatePicker', module)
 
 storiesOf('DateRangePicker', module)
     .add('empty', () => (
-        <DateRangePicker
+        <Stateful
+            Component={DateRangePicker}
             startPlaceholder="Start Date"
             endPlaceholder="End Date"
-            value={null}
-            onChange={action('changed')}
             style={{ margin: '1rem' }}
         />
     ))
-    .add('filled', () => (
-        <DateRangePicker
+    .add('with weeks', () => (
+        <Stateful
+            Component={DateRangePicker}
             startPlaceholder="Start Date"
             endPlaceholder="End Date"
-            value={interval}
-            onChange={action('changed')}
-            style={{ margin: '1rem' }}
-        />
-    ))
-    .add('empty with weeks', () => (
-        <DateRangePicker
-            startPlaceholder="Start Date"
-            endPlaceholder="End Date"
-            value={null}
-            onChange={action('changed')}
-            style={{ margin: '1rem' }}
-            includeWeeks
-        />
-    ))
-    .add('filled with weeks', () => (
-        <DateRangePicker
-            startPlaceholder="Start Date"
-            endPlaceholder="End Date"
-            value={interval}
-            onChange={action('changed')}
             style={{ margin: '1rem' }}
             includeWeeks
         />
@@ -90,90 +70,44 @@ storiesOf('DateRangePicker', module)
 
 storiesOf('TimePicker', module)
     .add('empty', () => (
-        <TimePicker
+        <Stateful
+            Component={TimePicker}
             placeholder="Time"
-            value={null}
-            onChange={action('changed')}
-            style={{ margin: '1rem', width: '19.5rem' }}
-        />
-    ))
-    .add('filled', () => (
-        <TimePicker
-            placeholder="Time"
-            value={date}
-            onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
         />
     ));
 
 storiesOf('TimeRangePicker', module)
     .add('empty', () => (
-        <TimeRangePicker
+        <Stateful
+            Component={TimeRangePicker}
             startPlaceholder="Start Time"
             endPlaceholder="End Time"
-            value={null}
-            onChange={action('changed')}
-            style={{ margin: '1rem' }}
-        />
-    ))
-    .add('filled', () => (
-        <TimeRangePicker
-            startPlaceholder="Start Time"
-            endPlaceholder="End Time"
-            value={interval}
-            onChange={action('changed')}
             style={{ margin: '1rem' }}
         />
     ));
 
 storiesOf('WeekPicker', module)
     .add('empty', () => (
-        <WeekPicker
+        <Stateful
+            Component={WeekPicker}
             placeholder="Week"
-            value={null}
-            onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
         />
     ))
-    .add('filled', () => (
-        <WeekPicker
+    .add('with dates', () => (
+        <Stateful includeDates
+            Component={WeekPicker}
             placeholder="Week"
-            value={week}
-            onChange={action('changed')}
-            style={{ margin: '1rem', width: '19.5rem' }}
-        />
-    ))
-    .add('empty with dates', () => (
-        <WeekPicker includeDates
-            placeholder="Week"
-            value={null}
-            onChange={action('changed')}
-            style={{ margin: '1rem', width: '19.5rem' }}
-        />
-    ))
-    .add('filled with dates', () => (
-        <WeekPicker includeDates
-            placeholder="Week"
-            value={week}
-            onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
         />
     ));
 
 storiesOf('MonthPicker', module)
     .add('empty', () => (
-        <MonthPicker
+        <Stateful
+            Component={MonthPicker}
             placeholder="Month"
-            value={null}
-            onChange={action('changed')}
-            style={{ margin: '1rem', width: '19.5rem' }}
-        />
-    ))
-    .add('filled', () => (
-        <MonthPicker
-            placeholder="Month"
-            value={month}
-            onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
         />
     ));
