@@ -93,7 +93,7 @@ export default class MonthCalendar extends Component {
     renderMonth(month, i) {
         const { value } = this.props
         const { year } = this.state
-        const classes = ['cell', 'hover'];
+        const classes = ['cell'];
 
         if (i === 0) {
             classes.push('first');
