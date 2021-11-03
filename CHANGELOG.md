@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2021-11-03
+### Added
+- Added components `MonthPicker`, `MonthInput`, and `MonthCalendar` that allow for month selection.
+
 ## [0.4.11] - 2021-04-30
 ### Changed
 - Changed all components to leave the part of the date that they do not change the same. So a time picker does not change the date and a date picker does not change the time.
