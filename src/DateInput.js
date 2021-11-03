@@ -14,6 +14,10 @@ const formats = {
     'dd/LL/yyyy': 'dd/mm/yyyy',
     'LL/dd/yyyy': 'mm/dd/yyyy',
     'yyyy/LL/dd': 'yyyy/mm/dd',
+    'LL-yyyy': 'mm-yyyy',
+    'yyyy-LL': 'yyyy-mm',
+    'LL/yyyy': 'mm/yyyy',
+    'yyyy/LL': 'yyyy/mm',
     'dd-LL': 'dd-mm',
     'LL-dd': 'mm-dd',
     'dd/LL': 'dd/mm',
@@ -27,6 +31,10 @@ const masks = {
     'dd/mm/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
     'mm/dd/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
     'yyyy/mm/dd': [/\d/,/\d/,/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/],
+    'mm-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
+    'yyyy-mm': [/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/],
+    'mm/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
+    'yyyy/mm': [/\d/,/\d/,/\d/,/\d/,'/',/\d/,/\d/],
     'dd-mm': [/\d/,/\d/,'-',/\d/,/\d/],
     'mm-dd': [/\d/,/\d/,'-',/\d/,/\d/],
     'dd/mm': [/\d/,/\d/,'/',/\d/,/\d/],
@@ -40,6 +48,10 @@ const formatKeepDateDefault = {
     'dd/LL/yyyy': false,
     'LL/dd/yyyy': false,
     'yyyy/LL/dd': false,
+    'LL-yyyy': false,
+    'yyyy-LL': false,
+    'LL/yyyy': false,
+    'yyyy/LL': false,
     'dd-LL': false,
     'LL-dd': false,
     'dd/LL': false,
@@ -53,6 +65,10 @@ const formatKeepTimeDefault = {
     'dd/LL/yyyy': true,
     'LL/dd/yyyy': true,
     'yyyy/LL/dd': true,
+    'LL-yyyy': true,
+    'yyyy-LL': true,
+    'LL/yyyy': true,
+    'yyyy/LL': true,
     'dd-LL': true,
     'LL-dd': true,
     'dd/LL': true,
@@ -166,7 +182,7 @@ export default class DateInput extends Component {
     }
 
     render() {
-        const { typeValue, autoCorrectedDatePipe } = this.state; 
+        const { typeValue, autoCorrectedDatePipe } = this.state;
         const { format, value, innerRef, ...props } = this.props;
 
         delete props.onChange;
@@ -194,7 +210,7 @@ export default class DateInput extends Component {
                 />
             );
         } else {
-            return ( 
+            return (
                 <Input
                     value={
                         typeValue !== null

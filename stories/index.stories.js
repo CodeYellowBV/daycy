@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { DateTime, Interval } from 'luxon';
-import { DatePicker, DateRangePicker, TimePicker, TimeRangePicker, WeekPicker } from '../src/index';
+import { DatePicker, DateRangePicker, TimePicker, TimeRangePicker, WeekPicker, MonthPicker } from '../src/index';
 
 import 'semantic-ui-css/semantic.min.css';
 import '../src/daycy.css';
@@ -10,10 +10,11 @@ import '../src/daycy.css';
 const date = DateTime.local();
 const interval = Interval.fromDateTimes(date, date.plus({ weeks: 1 }));
 const week = { year: date.weekYear, week: date.weekNumber };
+const month = { year: date.year, month: date.month };
 
 storiesOf('DatePicker', module)
     .add('empty', () => (
-        <DatePicker 
+        <DatePicker
             placeholder="Date"
             value={null}
             onChange={action('changed')}
@@ -21,7 +22,7 @@ storiesOf('DatePicker', module)
         />
     ))
     .add('filled', () => (
-        <DatePicker 
+        <DatePicker
             placeholder="Date"
             value={date}
             onChange={action('changed')}
@@ -29,7 +30,7 @@ storiesOf('DatePicker', module)
         />
     ))
     .add('empty with weeks', () => (
-        <DatePicker 
+        <DatePicker
             placeholder="Date"
             value={null}
             onChange={action('changed')}
@@ -38,7 +39,7 @@ storiesOf('DatePicker', module)
         />
     ))
     .add('filled with weeks', () => (
-        <DatePicker 
+        <DatePicker
             placeholder="Date"
             value={date}
             onChange={action('changed')}
@@ -89,7 +90,7 @@ storiesOf('DateRangePicker', module)
 
 storiesOf('TimePicker', module)
     .add('empty', () => (
-        <TimePicker 
+        <TimePicker
             placeholder="Time"
             value={null}
             onChange={action('changed')}
@@ -97,7 +98,7 @@ storiesOf('TimePicker', module)
         />
     ))
     .add('filled', () => (
-        <TimePicker 
+        <TimePicker
             placeholder="Time"
             value={date}
             onChange={action('changed')}
@@ -107,7 +108,7 @@ storiesOf('TimePicker', module)
 
 storiesOf('TimeRangePicker', module)
     .add('empty', () => (
-        <TimeRangePicker 
+        <TimeRangePicker
             startPlaceholder="Start Time"
             endPlaceholder="End Time"
             value={null}
@@ -116,7 +117,7 @@ storiesOf('TimeRangePicker', module)
         />
     ))
     .add('filled', () => (
-        <TimeRangePicker 
+        <TimeRangePicker
             startPlaceholder="Start Time"
             endPlaceholder="End Time"
             value={interval}
@@ -127,7 +128,7 @@ storiesOf('TimeRangePicker', module)
 
 storiesOf('WeekPicker', module)
     .add('empty', () => (
-        <WeekPicker 
+        <WeekPicker
             placeholder="Week"
             value={null}
             onChange={action('changed')}
@@ -154,6 +155,24 @@ storiesOf('WeekPicker', module)
         <WeekPicker includeDates
             placeholder="Week"
             value={week}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ));
+
+storiesOf('MonthPicker', module)
+    .add('empty', () => (
+        <MonthPicker
+            placeholder="Month"
+            value={null}
+            onChange={action('changed')}
+            style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ))
+    .add('filled', () => (
+        <MonthPicker
+            placeholder="Month"
+            value={month}
             onChange={action('changed')}
             style={{ margin: '1rem', width: '19.5rem' }}
         />

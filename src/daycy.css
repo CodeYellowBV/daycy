@@ -5,7 +5,8 @@
 
 .daycy.date-range-picker,
 .daycy.time-range-picker,
-.daycy.week-picker {
+.daycy.week-picker,
+.daycy.month-picker {
     display: flex;
     align-items: center;
     background-color: #FFF;
@@ -21,6 +22,8 @@
 .daycy.time-picker.fluid,
 .ui.form .daycy.week-picker,
 .daycy.week-picker.fluid,
+.ui.form .daycy.month-picker,
+.daycy.month-picker.fluid,
 .ui.form .daycy.date-range-picker,
 .daycy.date-range-picker.fluid,
 .ui.form .daycy.time-range-picker,
@@ -30,20 +33,23 @@
 
 .daycy.date-range-picker.focus,
 .daycy.time-range-picker.focus,
-.daycy.week-picker.focus {
+.daycy.week-picker.focus,
+.daycy.month-picker.focus  {
     border-color: #85b7d9;
 }
 
 .daycy.date-range-picker > .ui.input,
 .daycy.time-range-picker > .ui.input,
-.daycy.week-picker > .ui.input {
+.daycy.week-picker > .ui.input
+.daycy.month-picker > .ui.input {
     flex: 1 1 auto;
     width: 0 !important;
 }
 
 .daycy.date-range-picker > .ui.input > input,
 .daycy.time-range-picker > .ui.input > input,
-.daycy.week-picker > .ui.input > input {
+.daycy.week-picker > .ui.input > input,
+.daycy.month-picker > .ui.input > input  {
     background: unset !important;
     border: unset !important;
 }
@@ -69,11 +75,13 @@
 
 /* Calendar */
 
-.daycy.calendar {
+.daycy.calendar,
+.daycy.month-calendar {
     padding: 0;
 }
 
-.daycy.calendar > .title {
+.daycy.calendar > .title,
+.daycy.month-calendar > .title {
     display: flex;
     justify-content: space-between;
     font-size: 120%;
@@ -83,7 +91,8 @@
     color: rgb(34, 36, 38);
 }
 
-.daycy.calendar > .title > .icon {
+.daycy.calendar > .title > .icon,
+.daycy.month-calendar > .title > .icon {
     cursor: pointer;
     color: rgba(34, 36, 38, 0.3);
 }
@@ -125,7 +134,6 @@
     height: 2.5rem;
     line-height: 2.5rem;
     margin: 0;
-    /* border-right: 1px solid rgba(34, 36, 38, 0.15);*/
     border-right: 1px solid rgba(34, 36, 38, 0.075);
     cursor: unset;
 }
@@ -302,4 +310,43 @@
 .daycy.clock > .face > .period-bg.pm,
 .daycy.clock > .face > .period.pm {
     left: calc(6rem - 2px);
+}
+
+/* Month Calendar */
+
+.daycy.month-calendar > .grid > .row > .cell {
+    display: inline-block;
+    width: 8rem;
+    height: 2.5rem;
+    text-align: center;
+    line-height: 2.3rem;
+    color: rgb(34, 36, 38);
+    border: 1px solid rgb(238.43, 238.58, 238.73);
+    border-top: unset !important;
+    border-left: unset !important;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.daycy.month-calendar > .grid > .row > .cell:hover {
+    background-color: rgb(238.43, 238.58, 238.73);
+}
+
+.daycy.month-calendar > .grid > .row > .cell.selected {
+    background-color: #2185d0;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.daycy.month-calendar > .grid > .row > .cell:last-child {
+    border-right: unset !important;
+}
+
+.daycy.month-calendar > .grid > .row:last-child > .cell {
+    border-bottom: unset !important;
+}
+
+.daycy.month-calendar > .grid > .row:last-child > .cell.month {
+    height: 3rem;
+    margin-bottom: 0;
 }
