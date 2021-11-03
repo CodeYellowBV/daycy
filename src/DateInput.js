@@ -25,21 +25,21 @@ const formats = {
     'HH:mm': 'HH:MM',
 }
 const masks = {
-    'dd-mm-yyyy': [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-    'mm-dd-yyyy': [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-    'yyyy-mm-dd': [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
-    'dd/mm/yyyy': [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
-    'mm/dd/yyyy': [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
-    'yyyy/mm/dd': [/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/],
-    'mm-yyyy': [/\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-    'yyyy-mm': [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/],
-    'mm/yyyy': [/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
-    'yyyy/mm': [/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/],
-    'dd-mm': [/\d/, /\d/, '-', /\d/, /\d/],
-    'mm-dd': [/\d/, /\d/, '-', /\d/, /\d/],
-    'dd/mm': [/\d/, /\d/, '/', /\d/, /\d/],
-    'mm/dd': [/\d/, /\d/, '/', /\d/, /\d/],
-    'HH:MM': [/\d/, /\d/, ':', /\d/, /\d/],
+    'dd-mm-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
+    'mm-dd-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
+    'yyyy-mm-dd': [/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/],
+    'dd/mm/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
+    'mm/dd/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
+    'yyyy/mm/dd': [/\d/,/\d/,/\d/,/\d/,'/',/\d/,/\d/,'/',/\d/,/\d/],
+    'mm-yyyy': [/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/],
+    'yyyy-mm': [/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/],
+    'mm/yyyy': [/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/],
+    'yyyy/mm': [/\d/,/\d/,/\d/,/\d/,'/',/\d/,/\d/],
+    'dd-mm': [/\d/,/\d/,'-',/\d/,/\d/],
+    'mm-dd': [/\d/,/\d/,'-',/\d/,/\d/],
+    'dd/mm': [/\d/,/\d/,'/',/\d/,/\d/],
+    'mm/dd': [/\d/,/\d/,'/',/\d/,/\d/],
+    'HH:MM': [/\d/,/\d/,':',/\d/,/\d/],
 }
 const formatKeepDateDefault = {
     'dd-LL-yyyy': false,
@@ -111,8 +111,8 @@ export default class DateInput extends Component {
             format: props.format,
             autoCorrectedDatePipe: (
                 Object.keys(formats).includes(props.format)
-                    ? createAutoCorrectedDatePipe(formats[props.format])
-                    : null
+                ? createAutoCorrectedDatePipe(formats[props.format])
+                : null
             ),
         };
     }
@@ -195,10 +195,10 @@ export default class DateInput extends Component {
                     pipe={autoCorrectedDatePipe}
                     value={
                         typeValue !== null
-                            ? typeValue
-                            : value
-                                ? value.toFormat(format)
-                                : ''
+                        ? typeValue
+                        : value
+                        ? value.toFormat(format)
+                        : ''
                     }
                     onChange={this.onChange}
                     onBlur={this.onBlur}
@@ -214,10 +214,10 @@ export default class DateInput extends Component {
                 <Input
                     value={
                         typeValue !== null
-                            ? typeValue
-                            : value
-                                ? value.toFormat(format)
-                                : ''
+                        ? typeValue
+                        : value
+                        ? value.toFormat(format)
+                        : ''
                     }
                     ref={innerRef}
                     onChange={this.onChange}
