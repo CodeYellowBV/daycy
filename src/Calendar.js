@@ -206,7 +206,9 @@ export default class Calendar extends Component {
                 date >= highlightStart &&
                 date <= hoverDate
             )
-        ) : false) {
+        ) : (
+            false
+        )) {
             classes.push('hover');
         }
         if (date.year !== month.year || date.month !== month.month) {
@@ -229,9 +231,8 @@ export default class Calendar extends Component {
 
 
     render() {
-        const { includeWeeks, open, trigger, onClose, nullable } = this.props;
-        const { month, weeks, hoverClear } = this.state;
-        const onChange = this.onChange;
+        const { includeWeeks, open, trigger, onClose } = this.props;
+        const { month, weeks } = this.state;
 
         return (
             <Popup
