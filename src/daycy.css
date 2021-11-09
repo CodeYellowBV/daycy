@@ -87,6 +87,16 @@
     color: rgb(34, 36, 38);
 }
 
+.daycy.calendar > .clear {
+    display: flex;
+    justify-content: space-between;
+    font-size: 120%;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    padding: 0.883rem 1rem;
+    color: rgb(34, 36, 38);
+}
+
 .daycy.calendar > .title > .icon,
 .daycy.month-calendar > .title > .icon {
     cursor: pointer;

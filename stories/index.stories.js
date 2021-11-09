@@ -47,6 +47,23 @@ storiesOf('DatePicker', module)
             style={{ margin: '1rem', width: '19.5rem' }}
             includeWeeks
         />
+    ))
+    .add('nullable basic', () => (
+        <Stateful
+            Component={DatePicker}
+            placeholder="Date"
+            style={{ margin: '1rem', width: '19.5rem' }}
+            nullable={true}
+        />
+    ))
+    .add('nullable with weeks', () => (
+        <Stateful
+            Component={DatePicker}
+            placeholder="Date"
+            style={{ margin: '1rem', width: '19.5rem' }}
+            includeWeeks
+            nullable={true}
+        />
     ));
 
 storiesOf('DateRangePicker', module)
@@ -65,6 +82,25 @@ storiesOf('DateRangePicker', module)
             endPlaceholder="End Date"
             style={{ margin: '1rem' }}
             includeWeeks
+        />
+    ))
+    .add('nullable empty', () => (
+        <Stateful
+            Component={DateRangePicker}
+            startPlaceholder="Start Date"
+            endPlaceholder="End Date"
+            style={{ margin: '1rem' }}
+            nullable={true}
+        />
+    ))
+    .add('nullable with weeks', () => (
+        <Stateful
+            Component={DateRangePicker}
+            startPlaceholder="Start Date"
+            endPlaceholder="End Date"
+            style={{ margin: '1rem' }}
+            includeWeeks
+            nullable={true}
         />
     ));
 
@@ -100,6 +136,22 @@ storiesOf('WeekPicker', module)
             Component={WeekPicker}
             placeholder="Week"
             style={{ margin: '1rem', width: '19.5rem' }}
+        />
+    ))
+    .add('nullable empty', () => (
+        <Stateful
+            Component={WeekPicker}
+            placeholder="Week"
+            style={{ margin: '1rem', width: '19.5rem' }}
+            nullable={true}
+        />
+    ))
+    .add('nullable with dates', () => (
+        <Stateful includeDates
+                  Component={WeekPicker}
+                  placeholder="Week"
+                  style={{ margin: '1rem', width: '19.5rem' }}
+                  nullable={true}
         />
     ));
 

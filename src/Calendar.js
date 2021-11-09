@@ -27,14 +27,16 @@ export default class Calendar extends Component {
         includeWeeks: PropTypes.bool,
         onWeekSelect: PropTypes.func,
         translate: PropTypes.func,
+        nullable: PropTypes.bool,
     };
 
     static defaultProps = {
         includeWeeks: false,
         onClose: () => {},
+        nullable: false,
     };
 
-    state = { month: null, weeks: null, hoverWeek: null, hoverDate: null };
+    state = { month: null, weeks: null, hoverWeek: null, hoverDate: null, hoverClear: false };
 
     constructor(...args) {
         super(...args);
@@ -54,7 +56,7 @@ export default class Calendar extends Component {
         { month, weeks, hoverDate },
     ) {
         const updates = {};
-        
+
         if (value) {
             updates.value = value.startOf('day');
         } else {
@@ -74,7 +76,7 @@ export default class Calendar extends Component {
                 const date = (
                     value ||
                     highlightStart ||
-                    highlightEnd || 
+                    highlightEnd ||
                     DateTime.local()
                 );
                 month = date.startOf('month');
@@ -122,7 +124,7 @@ export default class Calendar extends Component {
 
     onChange(date) {
         const { value, onChange } = this.props
-        if (value) {
+        if (value && date !== null) {
             date = date.set({
                 hour: value.hour,
                 minute: value.minute,
@@ -195,7 +197,7 @@ export default class Calendar extends Component {
             (
                 hover === 'start' &&
                 highlightEnd &&
-                date >= hoverDate && 
+                date >= hoverDate &&
                 date <= highlightEnd
             ) ||
             (
@@ -204,9 +206,7 @@ export default class Calendar extends Component {
                 date >= highlightStart &&
                 date <= hoverDate
             )
-        ) : (
-            false
-        )) {
+        ) : false) {
             classes.push('hover');
         }
         if (date.year !== month.year || date.month !== month.month) {
@@ -226,17 +226,20 @@ export default class Calendar extends Component {
         );
     }
 
+
+
     render() {
-        const { includeWeeks, open, trigger, onClose } = this.props;
-        const { month, weeks } = this.state;
+        const { includeWeeks, open, trigger, onClose, nullable } = this.props;
+        const { month, weeks, hoverClear } = this.state;
+        const onChange = this.onChange;
 
         return (
-            <Popup 
+            <Popup
                 className="daycy calendar"
                 flowing
-                trigger={trigger} 
-                open={open} 
-                on="click" 
+                trigger={trigger}
+                open={open}
+                on="click"
                 onClose={onClose}
                 onMouseDown={(e) => e.preventDefault()}
             >
@@ -259,6 +262,19 @@ export default class Calendar extends Component {
                         {DAYS.map(this.renderDay)}
                     </div>
                     {weeks && weeks.map(this.renderWeek)}
+                    <div className="row">
+                        {nullable && (
+                            <div
+                            className={hoverClear ? "hover cell": "cell"}
+                            style={{width: "100%"}}
+                            onClick={() => this.onChange(null)}
+                            onMouseEnter={() => this.setState({hoverClear: true})}
+                            onMouseLeave={() => this.setState({hoverClear: false})}
+                        >
+                            {this.translate('clear.label')}
+                        </div>
+                        )}
+                    </div>
                 </div>
             </Popup>
         );

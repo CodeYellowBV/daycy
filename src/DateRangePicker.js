@@ -27,6 +27,7 @@ export default class DateRangePicker extends Component {
         includeWeeks: PropTypes.bool,
         disabled: PropTypes.bool,
         noPopup: PropTypes.bool,
+        nullable: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -39,6 +40,7 @@ export default class DateRangePicker extends Component {
         fluid: false,
         disabled: false,
         noPopup: false,
+        nullable: false,
     };
 
     state = { open: null, override: null };
@@ -58,11 +60,18 @@ export default class DateRangePicker extends Component {
     onChange(date, close = true) {
         let { value, onChange } = this.props;
         const { open, override } = this.state;
+        console.log(value, open, override)
 
         value = override || value || EMPTY;
         let other = OTHER[open];
-
-        if (
+        if (date === null){
+            // this.setState({
+            //     open: null,
+            //     override: null,
+            // });
+            onChange(null);
+        }
+        else if (
             value[other] === null ||
             (open === 'start' && date > value.end) ||
             (open === 'end' && date < value.start)
@@ -79,7 +88,8 @@ export default class DateRangePicker extends Component {
                 month: date.startOf('month'),
                 weeks: null,
             });
-        } else {
+        }
+        else {
             value = { [open]: date, [other]: value[other] };
             onChange(Interval.fromDateTimes(value.start, value.end));
             if (close) {
@@ -123,7 +133,7 @@ export default class DateRangePicker extends Component {
         let {
             value, format, icon, translate, startProps, endProps,
             startPlaceholder, endPlaceholder, fluid, includeWeeks, disabled,
-            noPopup,
+            noPopup, nullable,
             ...props
         } = this.props;
         const { open, override } = this.state;
@@ -156,6 +166,7 @@ export default class DateRangePicker extends Component {
                 value={value[open]}
                 onChange={this.onChange}
                 hover={open}
+                nullable={nullable}
                 highlightStart={value.start || value.end}
                 highlightEnd={value.end || value.start}
                 trigger={

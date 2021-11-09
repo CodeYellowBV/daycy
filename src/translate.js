@@ -60,4 +60,7 @@ configureTranslation({
         am: 'AM',
         pm: 'PM',
     },
+    clear: {
+        label: "Clear",
+    }
 });
