@@ -87,16 +87,6 @@
     color: rgb(34, 36, 38);
 }
 
-.daycy.calendar > .clear {
-    display: flex;
-    justify-content: space-between;
-    font-size: 120%;
-    font-weight: bold;
-    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
-    padding: 0.883rem 1rem;
-    color: rgb(34, 36, 38);
-}
-
 .daycy.calendar > .title > .icon,
 .daycy.month-calendar > .title > .icon {
     cursor: pointer;
@@ -105,6 +95,20 @@
 
 .daycy.calendar > .title > .icon:hover {
     color: rgba(34, 36, 38, 0.5);
+}
+
+.daycy.calendar > .grid > .row.clear {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row nowrap;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    padding: 1rem 1rem;
+    color: rgb(34, 36, 38);
+}
+
+.daycy.calendar > .grid > .row.clear > .cell {
+    flex: 1 100%;
 }
 
 .daycy.calendar > .grid > .row > .cell {

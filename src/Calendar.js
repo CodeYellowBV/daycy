@@ -231,8 +231,8 @@ export default class Calendar extends Component {
 
 
     render() {
-        const { includeWeeks, open, trigger, onClose } = this.props;
-        const { month, weeks } = this.state;
+        const { includeWeeks, open, trigger, onClose, nullable } = this.props;
+        const { month, weeks, hoverClear } = this.state;
 
         return (
             <Popup
@@ -263,11 +263,10 @@ export default class Calendar extends Component {
                         {DAYS.map(this.renderDay)}
                     </div>
                     {weeks && weeks.map(this.renderWeek)}
-                    <div className="row">
+                    <div className="row clear">
                         {nullable && (
                             <div
                             className={hoverClear ? "hover cell": "cell"}
-                            style={{width: "100%"}}
                             onClick={() => this.onChange(null)}
                             onMouseEnter={() => this.setState({hoverClear: true})}
                             onMouseLeave={() => this.setState({hoverClear: false})}
