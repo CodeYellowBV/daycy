@@ -228,8 +228,6 @@ export default class Calendar extends Component {
         );
     }
 
-
-
     render() {
         const { includeWeeks, open, trigger, onClose, nullable } = this.props;
         const { month, weeks, hoverClear } = this.state;

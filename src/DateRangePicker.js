@@ -65,10 +65,6 @@ export default class DateRangePicker extends Component {
         value = override || value || EMPTY;
         let other = OTHER[open];
         if (date === null){
-            // this.setState({
-            //     open: null,
-            //     override: null,
-            // });
             onChange(null);
         }
         else if (
@@ -88,8 +84,7 @@ export default class DateRangePicker extends Component {
                 month: date.startOf('month'),
                 weeks: null,
             });
-        }
-        else {
+        } else {
             value = { [open]: date, [other]: value[other] };
             onChange(Interval.fromDateTimes(value.start, value.end));
             if (close) {
