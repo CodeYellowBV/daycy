@@ -97,6 +97,20 @@
     color: rgba(34, 36, 38, 0.5);
 }
 
+.daycy.calendar > .grid > .row.clear {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row nowrap;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    padding: 1rem 1rem;
+    color: rgb(34, 36, 38);
+}
+
+.daycy.calendar > .grid > .row.clear > .cell {
+    flex: 1 100%;
+}
+
 .daycy.calendar > .grid > .row > .cell {
     display: inline-block;
     width: 2.3rem;

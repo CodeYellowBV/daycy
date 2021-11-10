@@ -26,8 +26,8 @@ export function isoWeekEnd({ year, week }) {
 export default class WeekPicker extends Component {
     static propTypes = {
         value: PropTypes.shape({
-            year: PropTypes.number.isRequired,      
-            week: PropTypes.number.isRequired,      
+            year: PropTypes.number.isRequired,
+            week: PropTypes.number.isRequired,
         }),
         onChange: PropTypes.func.isRequired,
         translate: PropTypes.func,
@@ -35,6 +35,7 @@ export default class WeekPicker extends Component {
         format: PropTypes.string,
         includeDates: PropTypes.bool,
         noPopup: PropTypes.bool,
+        nullable: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -42,6 +43,7 @@ export default class WeekPicker extends Component {
         format: 'dd-LL-yyyy',
         includeDates: false,
         noPopup: false,
+        nullable: false,
     };
 
     state = { open: false };
@@ -55,10 +57,12 @@ export default class WeekPicker extends Component {
 
     onChange(value) {
         const { onChange } = this.props;
-        if (value instanceof Interval) {
-            value = value.start;
+        if(value !== null) {
+            if (value instanceof Interval) {
+                value = value.start;
+            }
+            value = {year: value.weekYear, week: value.weekNumber};
         }
-        value = { year: value.weekYear, week: value.weekNumber };
         onChange(value);
         this.onClose();
     }
@@ -77,7 +81,11 @@ export default class WeekPicker extends Component {
     }
 
     render() {
-        const { value, includeDates, format, translate, className, fluid, style, noPopup, ...props } = this.props;
+        const { value, includeDates, format,
+            translate, className, fluid,
+            style, noPopup, nullable,
+            ...props
+        } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
@@ -102,6 +110,7 @@ export default class WeekPicker extends Component {
                 highlightStart={value && isoWeekStart(value)}
                 highlightEnd={value && isoWeekEnd(value)}
                 hover="week"
+                nullable={nullable}
                 trigger={
                     <div className={classes.join(' ')} style={style} onClick={this.onOpen}>
                         <Input

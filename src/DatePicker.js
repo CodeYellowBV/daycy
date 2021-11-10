@@ -15,12 +15,14 @@ export default class DatePicker extends Component {
         includeWeeks: PropTypes.bool,
         onWeekSelect: PropTypes.func,
         noPopup: PropTypes.bool,
+        nullable: PropTypes.bool,
     };
 
     static defaultProps = {
         format: 'dd-LL-yyyy',
         fluid: false,
         noPopup: false,
+        nullable: false,
     };
 
     state = { open: false };
@@ -60,7 +62,7 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const { value, translate, includeWeeks, onWeekSelect, noPopup, ...props } = this.props;
+        const { value, translate, includeWeeks, onWeekSelect, nullable, noPopup, ...props } = this.props;
         const { open } = this.state;
 
         delete props.onChange;
@@ -71,6 +73,7 @@ export default class DatePicker extends Component {
                 open={!noPopup && open}
                 value={value}
                 onChange={this.onChange}
+                nullable={nullable}
                 trigger={
                     <DateInput
                         innerRef={(ref) => this.input = ref}
