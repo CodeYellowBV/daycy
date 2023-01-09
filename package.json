@@ -37,7 +37,7 @@
     "semantic-ui-css": "^2.4.1"
   },
   "dependencies": {
-    "luxon": "^1.15.0",
+    "luxon": "^2.5.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-text-mask": "^5.4.3",
