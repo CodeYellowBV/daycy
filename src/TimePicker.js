@@ -43,18 +43,24 @@ export default class TimePicker extends Component {
         return this.onChange(value, false); 
     }
 
-    onOpen() {
+    onOpen(e) {
+        const { onFocus } = this.props;
         this.setState({ open: true });
+        onFocus?.(e);
     }
 
-    onClose() {
+    onClose(e) {
+        const { onBlur } = this.props;
         this.setState({ open: false });
+        onBlur?.(e);
     }
 
     render() {
         const { value, format, translate, noPopup, ...props } = this.props;
         const { open } = this.state;
 
+        delete props.onFocus;
+        delete props.onBlur;
         delete props.onChange;
 
         return (
