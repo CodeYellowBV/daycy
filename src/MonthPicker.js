@@ -56,12 +56,16 @@ export default class MonthPicker extends Component {
     }
 
     onOpen(e) {
+        const { onFocus } = this.props;
         e.preventDefault();
         this.setState({ open: true });
+        onFocus?.(e);
     }
 
-    onClose() {
+    onClose(e) {
+        const { onBlur } = this.props;
         this.setState({ open: false });
+        onBlur?.(e);
     }
 
     translate(...args) {
@@ -72,6 +76,8 @@ export default class MonthPicker extends Component {
         const { value, className, fluid, translate, noPopup, ...props } = this.props;
         const { open } = this.state;
 
+        delete props.onFocus;
+        delete props.onBlur;
         delete props.onChange;
 
         const classes = ['daycy', 'month-picker'];
